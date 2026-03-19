@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Instant Booking | Japan Hotels for Foreign Tourists (WebMCP)</title>
+  <meta name="description" content="Search and book Japan's top hotels popular with international travelers. WebMCP enabled - AI agents can search directly! Tokyo, Kyoto, Osaka, Hokkaido, Okinawa.">
+  <meta property="og:title" content="AI Instant Booking | Japan Hotels for Foreign Tourists">
+  <meta property="og:description" content="WebMCP-enabled Japan hotel search. AI agents can search directly! 150+ curated hotels loved by foreign tourists.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: { 50: '#f0f4ff', 100: '#dbe4ff', 200: '#bac8ff', 500: '#3B82F6', 600: '#1E3A8A', 700: '#172E6D', 800: '#111F4D', 900: '#0C1433' },
+            gold: { 400: '#D4A843', 500: '#B8860B', 600: '#A16207' },
+          },
+          fontFamily: {
+            heading: ['Cormorant Garamond', 'Georgia', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+            jp: ['Noto Sans JP', 'Inter', 'sans-serif'],
+            tc: ['Noto Sans TC', 'Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    body[data-lang="ja"] { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
+    body[data-lang="zh-TW"] { font-family: 'Noto Sans TC', 'Inter', sans-serif; }
+    *:focus-visible { outline: 2px solid #1E3A8A; outline-offset: 2px; border-radius: 4px; }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #1E3A8A 0%, #172E6D 40%, #111F4D 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+    }
+    .hero-gradient::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, #F8FAFC, transparent);
+    }
+    .hero-gradient > * { position: relative; z-index: 1; }
+
+    .card-hover { transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(30, 58, 138, 0.12); }
+
+    #map { height: 350px; border-radius: 16px; }
+    @media (min-width: 768px) { #map { height: 420px; } }
+
+    .region-btn {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .region-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+    }
+    .region-btn.active {
+      background-color: #1E3A8A;
+      color: white;
+      border-color: #1E3A8A;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 16px; }
+
+    .search-input {
+      border: 2px solid #E9EEF5;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .search-input:focus {
+      border-color: #1E3A8A;
+      box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+      outline: none;
+    }
+
+    .hotel-card-img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      background: linear-gradient(135deg, #E9EEF5 0%, #dbe4ff 100%);
+    }
+
+    .badge-rating {
+      background: linear-gradient(135deg, #1E3A8A, #3B82F6);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1E3A8A, #2563EB);
+      color: white;
+      font-weight: 600;
+      padding: 14px 24px;
+      border-radius: 12px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #172E6D, #1E3A8A);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(30, 58, 138, 0.25);
+    }
+
+    .mobile-menu { display: none; }
+    .mobile-menu.open { display: flex; }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      background: #F1F5F9;
+      border-radius: 10px;
+      padding: 3px;
+    }
+    .lang-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #64748B;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none;
+      background: transparent;
+      white-space: nowrap;
+    }
+    .lang-btn:hover {
+      color: #1E3A8A;
+      background: rgba(30, 58, 138, 0.06);
+    }
+    .lang-btn.active {
+      background: white;
+      color: #1E3A8A;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+      font-weight: 600;
+    }
+    .lang-btn svg {
+      width: 16px;
+      height: 11px;
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card-hover:hover { transform: none; }
+      .region-btn:hover { transform: none; }
+      * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: #1E3A8A; color: white;
+      padding: 12px 24px; border-radius: 12px;
+      font-size: 14px; font-weight: 500;
+      box-shadow: 0 8px 24px rgba(30, 58, 138, 0.3);
+      z-index: 10000;
+      opacity: 0; transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body class="bg-[#F8FAFC] min-h-screen" data-lang="en">
+
+  <!-- Navigation -->
+  <nav class="bg-white border-b border-[#E9EEF5] sticky top-0 z-50" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#" class="flex items-center gap-2" aria-label="Home">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect width="32" height="32" rx="8" fill="#1E3A8A"/>
+            <path d="M8 22L16 10L24 22H8Z" fill="#D4A843"/>
+            <circle cx="16" cy="16" r="3" fill="white"/>
+          </svg>
+          <span class="font-heading text-xl font-bold text-navy-600 hidden sm:inline">AI Instant Booking</span>
+        </a>
+        <div class="flex items-center gap-4">
+          <!-- Language Switcher -->
+          <div class="lang-switcher" role="radiogroup" aria-label="Language">
+            <button class="lang-btn active" data-lang="en" role="radio" aria-checked="true" onclick="setLang('en')">
+              <svg viewBox="0 0 60 30"><clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>
+              EN
+            </button>
+            <button class="lang-btn" data-lang="ja" role="radio" aria-checked="false" onclick="setLang('ja')">
+              <svg viewBox="0 0 60 30"><rect width="60" height="30" fill="#fff"/><circle cx="30" cy="15" r="9" fill="#BC002D"/></svg>
+              日本語
+            </button>
+            <button class="lang-btn" data-lang="zh-TW" role="radio" aria-checked="false" onclick="setLang('zh-TW')">
+              <svg viewBox="0 0 60 30"><rect width="60" height="30" fill="#FE0000"/><rect width="30" height="15" fill="#000093"/><path d="M15,7.5 l1.8,-5.6 3.4,4.3 -5.5,-0.4 5.1,-2.2 z" fill="#fff"/></svg>
+              繁體中文
+            </button>
+          </div>
+          <!-- Desktop Nav -->
+          <div class="hidden lg:flex items-center gap-5">
+            <a href="#map-section" class="text-sm font-medium text-gray-600 hover:text-navy-600 transition" data-i18n="nav_map">Map</a>
+            <a href="#search-section" class="text-sm font-medium text-gray-600 hover:text-navy-600 transition" data-i18n="nav_search">Search</a>
+            <a href="#hotels-section" class="text-sm font-medium text-gray-600 hover:text-navy-600 transition" data-i18n="nav_hotels">Hotels</a>
+            <a href="#webmcp-section" class="text-sm font-medium text-gray-600 hover:text-navy-600 transition" data-i18n="nav_forai">For AI</a>
+            <span class="text-xs bg-navy-50 text-navy-600 px-2 py-1 rounded-full font-medium">WebMCP</span>
+          </div>
+          <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Toggle menu" aria-expanded="false">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12h18M3 6h18M3 18h18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="mobile-menu flex-col gap-3 pb-4 lg:hidden">
+        <a href="#map-section" class="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg" data-i18n="nav_map">Map</a>
+        <a href="#search-section" class="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg" data-i18n="nav_search">Search</a>
+        <a href="#hotels-section" class="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg" data-i18n="nav_hotels">Hotels</a>
+        <a href="#webmcp-section" class="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg" data-i18n="nav_forai">For AI</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="hero-gradient text-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 1.414L9.414 0 16 6.586l-1.414 1.414L8 1.414z"/>
+          <path d="M6.586 0L8 1.414l-6.586 6.586L0 6.586 6.586 0z"/>
+        </svg>
+        WebMCP Enabled
+      </div>
+      <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 leading-tight" data-i18n="hero_title">
+        Japan's Finest Hotels,<br>Booked Instantly
+      </h1>
+      <p class="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-8 font-light" data-i18n="hero_desc">
+        150+ curated hotels loved by international travelers. AI agents can search directly.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="#search-section" class="btn-primary text-base">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          <span data-i18n="hero_search_btn">Search Hotels</span>
+        </a>
+        <a href="#webmcp-section" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 px-6 py-3.5 rounded-xl text-sm font-medium transition" data-i18n="hero_learn_btn">
+          Learn about WebMCP
+        </a>
+      </div>
+      <div class="mt-10 flex flex-wrap justify-center gap-4 text-xs text-white/60">
+        <span>Claude</span><span>Gemini</span><span>OpenAI</span><span>150+ Hotels</span><span>JPY & USD</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Destinations Strip -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10" id="map-section">
+      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-center mb-2" data-i18n="explore_title">Explore by Region</h2>
+      <p class="text-center text-gray-500 mb-8 text-sm" data-i18n="explore_subtitle">Click a region or use the map below</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-8">
+        <button onclick="quickFilter('Tokyo')" class="region-btn bg-white border-2 border-[#E9EEF5] rounded-xl p-4 text-center cursor-pointer" aria-label="Filter Tokyo hotels">
+          <img src="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=300&h=200&fit=crop" alt="Tokyo" class="w-full h-20 object-cover rounded-lg mb-2" loading="lazy">
+          <p class="text-sm font-semibold text-navy-600">Tokyo / 東京</p>
+        </button>
+        <button onclick="quickFilter('Kyoto')" class="region-btn bg-white border-2 border-[#E9EEF5] rounded-xl p-4 text-center cursor-pointer" aria-label="Filter Kyoto hotels">
+          <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=300&h=200&fit=crop" alt="Kyoto" class="w-full h-20 object-cover rounded-lg mb-2" loading="lazy">
+          <p class="text-sm font-semibold text-navy-600">Kyoto / 京都</p>
+        </button>
+        <button onclick="quickFilter('Osaka')" class="region-btn bg-white border-2 border-[#E9EEF5] rounded-xl p-4 text-center cursor-pointer" aria-label="Filter Osaka hotels">
+          <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=300&h=200&fit=crop" alt="Osaka" class="w-full h-20 object-cover rounded-lg mb-2" loading="lazy">
+          <p class="text-sm font-semibold text-navy-600">Osaka / 大阪</p>
+        </button>
+        <button onclick="quickFilter('Hokkaido')" class="region-btn bg-white border-2 border-[#E9EEF5] rounded-xl p-4 text-center cursor-pointer" aria-label="Filter Hokkaido hotels">
+          <img src="https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?w=300&h=200&fit=crop" alt="Hokkaido" class="w-full h-20 object-cover rounded-lg mb-2" loading="lazy">
+          <p class="text-sm font-semibold text-navy-600">Hokkaido / 北海道</p>
+        </button>
+        <button onclick="quickFilter('Okinawa')" class="region-btn bg-white border-2 border-[#E9EEF5] rounded-xl p-4 text-center cursor-pointer" aria-label="Filter Okinawa hotels">
+          <img src="https://images.unsplash.com/photo-1540202404-1b927e27fa8b?w=300&h=200&fit=crop" alt="Okinawa" class="w-full h-20 object-cover rounded-lg mb-2" loading="lazy">
+          <p class="text-sm font-semibold text-navy-600">Okinawa / 沖縄</p>
+        </button>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-2 mb-8">
+        <button onclick="quickFilter('Yokohama')" class="region-btn px-4 py-2 bg-white border border-[#E9EEF5] rounded-lg text-sm font-medium text-gray-700">Yokohama / 横浜</button>
+        <button onclick="quickFilter('Hiroshima')" class="region-btn px-4 py-2 bg-white border border-[#E9EEF5] rounded-lg text-sm font-medium text-gray-700">Hiroshima / 広島</button>
+        <button onclick="quickFilter('Fukuoka')" class="region-btn px-4 py-2 bg-white border border-[#E9EEF5] rounded-lg text-sm font-medium text-gray-700">Fukuoka / 福岡</button>
+        <button onclick="quickFilter('Nagoya')" class="region-btn px-4 py-2 bg-white border border-[#E9EEF5] rounded-lg text-sm font-medium text-gray-700">Nagoya / 名古屋</button>
+        <button onclick="quickFilter('Mount Fuji')" class="region-btn px-4 py-2 bg-white border border-[#E9EEF5] rounded-lg text-sm font-medium text-gray-700">Mt. Fuji / 富士山</button>
+        <button onclick="quickFilter('')" class="region-btn px-4 py-2 bg-navy-600 text-white border border-navy-600 rounded-lg text-sm font-medium" id="showAllBtn" data-i18n="btn_show_all">Show All</button>
+      </div>
+
+      <!-- Map -->
+      <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-6">
+        <div id="map" class="shadow-sm" role="application" aria-label="Interactive map of Japan hotel regions"></div>
+      </div>
+    </section>
+
+    <!-- Search Form -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="search-section">
+      <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+        <h2 class="font-heading text-2xl font-bold mb-6 text-center" data-i18n="search_title">Find Your Perfect Stay</h2>
+        <form onsubmit="event.preventDefault(); humanSearch();" aria-label="Hotel search form">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label for="searchLocation" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_location">Location</label>
+              <input id="searchLocation" class="search-input w-full" data-i18n-placeholder="search_location_ph" placeholder="Tokyo, Kyoto, Osaka..." aria-label="Search by location">
+            </div>
+            <div>
+              <label for="searchPriceRange" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_price">Price Range</label>
+              <select id="searchPriceRange" class="search-input w-full" aria-label="Price range">
+                <option value="" data-i18n="price_all">All Prices</option>
+                <option value="0-10000" data-i18n="price_budget">Under ¥10,000 (Budget)</option>
+                <option value="10000-30000" data-i18n="price_mid">¥10k–¥30k (Mid)</option>
+                <option value="30000-50000" data-i18n="price_premium">¥30k–¥50k (Premium)</option>
+                <option value="50000-999999" data-i18n="price_luxury">¥50k+ (Luxury)</option>
+              </select>
+            </div>
+            <div class="flex items-end">
+              <button type="submit" class="btn-primary w-full cursor-pointer" aria-label="Search hotels">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <span data-i18n="btn_search">Search</span>
+              </button>
+            </div>
+          </div>
+          <div class="mt-4 text-center">
+            <button type="button" onclick="toggleAdvanced()" class="text-sm text-navy-600 hover:underline font-medium inline-flex items-center gap-1 cursor-pointer" id="advancedToggle" aria-expanded="false" aria-controls="advancedFields">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transition-transform" id="advancedChevron" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+              <span data-i18n="btn_more_options">More options</span>
+            </button>
+          </div>
+          <div id="advancedFields" class="hidden mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="searchDate" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_checkin">Check-in Date</label>
+              <input id="searchDate" type="date" class="search-input w-full" aria-label="Check-in date">
+            </div>
+            <div>
+              <label for="searchGuests" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_guests">Guests</label>
+              <select id="searchGuests" class="search-input w-full" aria-label="Number of guests">
+                <option value="1" data-i18n="guest_1">1 Guest</option>
+                <option value="2" selected data-i18n="guest_2">2 Guests</option>
+                <option value="3" data-i18n="guest_3">3 Guests</option>
+                <option value="4" data-i18n="guest_4">4 Guests</option>
+                <option value="5" data-i18n="guest_5">5+ Guests</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="hotels-section">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="font-heading text-2xl font-bold" id="resultsTitle" data-i18n="results_title">Popular Hotels</h2>
+        <p class="text-sm text-gray-500" id="resultsCount"></p>
+      </div>
+      <div id="results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="loading" class="hidden text-center py-16">
+        <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-navy-600 border-t-transparent" role="status">
+          <span class="sr-only" data-i18n="searching">Searching...</span>
+        </div>
+        <p class="mt-4 text-gray-500 text-sm" data-i18n="searching_hotels">Searching hotels...</p>
+      </div>
+    </section>
+
+    <!-- WebMCP Info -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" id="webmcp-section">
+      <div class="bg-navy-50 rounded-2xl p-6 sm:p-10">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-14 h-14 bg-navy-600 rounded-2xl mb-4">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true">
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <path d="M9 9h6v6H9z"/>
+              <path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/>
+            </svg>
+          </div>
+          <h2 class="font-heading text-2xl sm:text-3xl font-bold mb-2" data-i18n="webmcp_title">Built for AI Agents</h2>
+          <p class="text-gray-600 max-w-xl mx-auto" data-i18n="webmcp_desc">WebMCP enabled. Claude, Gemini, and OpenAI-compatible agents can search hotels directly via structured tool calls.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white p-6 rounded-xl">
+            <h3 class="font-semibold text-sm text-navy-600 mb-3 uppercase tracking-wide" data-i18n="webmcp_nl_title">Natural Language</h3>
+            <code class="block bg-gray-50 border border-gray-200 p-4 rounded-lg text-sm font-mono text-gray-700" data-i18n-html="webmcp_nl_example">
+              "Search Tokyo hotels under $100 for 2 guests"
+            </code>
+            <p class="mt-3 text-gray-500 text-sm" data-i18n="webmcp_nl_note">AI automatically calls the searchJapaneseHotels tool</p>
+          </div>
+          <div class="bg-white p-6 rounded-xl">
+            <h3 class="font-semibold text-sm text-navy-600 mb-3 uppercase tracking-wide" data-i18n="webmcp_dc_title">Direct Tool Call</h3>
+            <code class="block bg-gray-50 border border-gray-200 p-4 rounded-lg text-sm font-mono text-gray-700">
+              searchJapaneseHotels({ location: "Kyoto", guests: 2, maxPrice: 50000 })
+            </code>
+            <p class="mt-3 text-gray-500 text-sm" data-i18n="webmcp_dc_note">Returns structured JSON with booking links</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-navy-900 text-white py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid sm:grid-cols-3 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <rect width="32" height="32" rx="8" fill="#3B82F6"/>
+              <path d="M8 22L16 10L24 22H8Z" fill="#D4A843"/>
+              <circle cx="16" cy="16" r="3" fill="white"/>
+            </svg>
+            <span class="font-heading text-lg font-bold">AI Instant Booking</span>
+          </div>
+          <p class="text-gray-400 text-sm" data-i18n="footer_desc">The first AI-compatible Japan hotel search tool for foreign tourists.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm uppercase tracking-wide mb-3" data-i18n="footer_regions">Regions</h4>
+          <div class="grid grid-cols-2 gap-2 text-sm text-gray-400">
+            <a href="#" onclick="event.preventDefault(); quickFilter('Tokyo')" class="hover:text-white transition">Tokyo / 東京</a>
+            <a href="#" onclick="event.preventDefault(); quickFilter('Kyoto')" class="hover:text-white transition">Kyoto / 京都</a>
+            <a href="#" onclick="event.preventDefault(); quickFilter('Osaka')" class="hover:text-white transition">Osaka / 大阪</a>
+            <a href="#" onclick="event.preventDefault(); quickFilter('Hokkaido')" class="hover:text-white transition">Hokkaido / 北海道</a>
+            <a href="#" onclick="event.preventDefault(); quickFilter('Okinawa')" class="hover:text-white transition">Okinawa / 沖縄</a>
+            <a href="#" onclick="event.preventDefault(); quickFilter('')" class="hover:text-white transition" data-i18n="footer_all">All Hotels</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm uppercase tracking-wide mb-3">Info</h4>
+          <div class="text-sm text-gray-400 space-y-1">
+            <p data-i18n="footer_hotels">150+ curated hotels</p>
+            <p data-i18n="footer_pricing">JPY & USD pricing</p>
+            <p data-i18n="footer_affiliate">Affiliate links used</p>
+            <p data-i18n="footer_launched">Launched March 2026</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-6 text-center text-xs text-gray-500" data-i18n="footer_disclosure">
+        Powered by WebMCP. All prices are estimates and may vary. Affiliate disclosure: Some links may earn commissions.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast container -->
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+  <script>
+    // ============================================================
+    // I18N - Internationalization System
+    // ============================================================
+    const i18n = {
+      en: {
+        nav_map: "Map",
+        nav_search: "Search",
+        nav_hotels: "Hotels",
+        nav_forai: "For AI",
+        hero_title: 'Japan\'s Finest Hotels,<br>Booked Instantly',
+        hero_desc: "150+ curated hotels loved by international travelers. AI agents can search directly.",
+        hero_search_btn: "Search Hotels",
+        hero_learn_btn: "Learn about WebMCP",
+        explore_title: "Explore by Region",
+        explore_subtitle: "Click a region or use the map below",
+        btn_show_all: "Show All",
+        search_title: "Find Your Perfect Stay",
+        search_location: "Location",
+        search_location_ph: "Tokyo, Kyoto, Osaka...",
+        search_price: "Price Range",
+        price_all: "All Prices",
+        price_budget: "Under ¥10,000 (Budget)",
+        price_mid: "¥10k–¥30k (Mid)",
+        price_premium: "¥30k–¥50k (Premium)",
+        price_luxury: "¥50k+ (Luxury)",
+        btn_search: "Search",
+        btn_more_options: "More options",
+        search_checkin: "Check-in Date",
+        search_guests: "Guests",
+        guest_1: "1 Guest",
+        guest_2: "2 Guests",
+        guest_3: "3 Guests",
+        guest_4: "4 Guests",
+        guest_5: "5+ Guests",
+        results_title: "Popular Hotels",
+        results_hotels_in: "Hotels",
+        results_showing: "Showing {0} of {1} hotels",
+        results_no_location: "Showing {0} of {1} hotels",
+        searching: "Searching...",
+        searching_hotels: "Searching hotels...",
+        no_hotels_title: "No hotels found",
+        no_hotels_desc: "Try a different location or adjust your filters",
+        found_hotels: "Found {0} hotels in {1}",
+        found_hotels_all: "Found {0} hotels",
+        per_night: "/night",
+        btn_book: "Book Now",
+        webmcp_title: "Built for AI Agents",
+        webmcp_desc: "WebMCP enabled. Claude, Gemini, and OpenAI-compatible agents can search hotels directly via structured tool calls.",
+        webmcp_nl_title: "Natural Language",
+        webmcp_nl_example: '"Search Tokyo hotels under $100 for 2 guests"',
+        webmcp_nl_note: "AI automatically calls the searchJapaneseHotels tool",
+        webmcp_dc_title: "Direct Tool Call",
+        webmcp_dc_note: "Returns structured JSON with booking links",
+        footer_desc: "The first AI-compatible Japan hotel search tool for foreign tourists.",
+        footer_regions: "Regions",
+        footer_all: "All Hotels",
+        footer_hotels: "150+ curated hotels",
+        footer_pricing: "JPY & USD pricing",
+        footer_affiliate: "Affiliate links used",
+        footer_launched: "Launched March 2026",
+        footer_disclosure: "Powered by WebMCP. All prices are estimates and may vary. Affiliate disclosure: Some links may earn commissions.",
+        click_to_search: "Click to search hotels",
+      },
+      ja: {
+        nav_map: "地図",
+        nav_search: "検索",
+        nav_hotels: "ホテル一覧",
+        nav_forai: "AI向け",
+        hero_title: '日本の最高級ホテルを<br>AIですぐに予約',
+        hero_desc: "海外観光客に人気の厳選ホテル150件以上。AIエージェントが直接検索可能。",
+        hero_search_btn: "ホテルを検索",
+        hero_learn_btn: "WebMCPについて",
+        explore_title: "エリアで探す",
+        explore_subtitle: "エリアをクリックまたは下の地図をご利用ください",
+        btn_show_all: "すべて表示",
+        search_title: "理想の宿泊先を見つける",
+        search_location: "場所",
+        search_location_ph: "東京、京都、大阪...",
+        search_price: "価格帯",
+        price_all: "すべての価格",
+        price_budget: "¥10,000以下（格安）",
+        price_mid: "¥1万〜¥3万（中級）",
+        price_premium: "¥3万〜¥5万（プレミアム）",
+        price_luxury: "¥5万以上（高級）",
+        btn_search: "検索",
+        btn_more_options: "詳細オプション",
+        search_checkin: "チェックイン日",
+        search_guests: "宿泊人数",
+        guest_1: "1名",
+        guest_2: "2名",
+        guest_3: "3名",
+        guest_4: "4名",
+        guest_5: "5名以上",
+        results_title: "人気ホテル",
+        results_hotels_in: "のホテル",
+        results_showing: "{1}件中{0}件を表示中",
+        results_no_location: "{1}件中{0}件を表示中",
+        searching: "検索中...",
+        searching_hotels: "ホテルを検索中...",
+        no_hotels_title: "ホテルが見つかりません",
+        no_hotels_desc: "別の場所や条件でお試しください",
+        found_hotels: "{1}で{0}件のホテルが見つかりました",
+        found_hotels_all: "{0}件のホテルが見つかりました",
+        per_night: "/泊",
+        btn_book: "今すぐ予約",
+        webmcp_title: "AIエージェント対応",
+        webmcp_desc: "WebMCP対応。Claude、Gemini、OpenAI互換のAIエージェントが直接ホテル検索ツールを呼び出せます。",
+        webmcp_nl_title: "自然言語",
+        webmcp_nl_example: '"東京のホテルを2名で1万円以下で検索して"',
+        webmcp_nl_note: "AIが自動的にsearchJapaneseHotelsツールを呼び出します",
+        webmcp_dc_title: "直接ツール呼び出し",
+        webmcp_dc_note: "予約リンク付きの構造化JSONを返します",
+        footer_desc: "海外観光客向け・日本初のAI対応ホテル検索ツール。",
+        footer_regions: "エリア",
+        footer_all: "すべてのホテル",
+        footer_hotels: "厳選ホテル150件以上",
+        footer_pricing: "JPY & USD対応",
+        footer_affiliate: "アフィリエイトリンク使用",
+        footer_launched: "2026年3月ローンチ",
+        footer_disclosure: "WebMCP搭載。価格は目安で変動する場合があります。アフィリエイト開示：一部のリンクは報酬を得る場合があります。",
+        click_to_search: "クリックしてホテルを検索",
+      },
+      "zh-TW": {
+        nav_map: "地圖",
+        nav_search: "搜尋",
+        nav_hotels: "飯店列表",
+        nav_forai: "AI 專用",
+        hero_title: "日本精選飯店<br>AI 即時預約",
+        hero_desc: "150+ 間國際旅客愛用的嚴選飯店。AI 智慧助理可直接搜尋。",
+        hero_search_btn: "搜尋飯店",
+        hero_learn_btn: "了解 WebMCP",
+        explore_title: "依區域探索",
+        explore_subtitle: "點擊區域或使用下方地圖",
+        btn_show_all: "顯示全部",
+        search_title: "尋找完美住宿",
+        search_location: "地點",
+        search_location_ph: "東京、京都、大阪...",
+        search_price: "價格範圍",
+        price_all: "所有價格",
+        price_budget: "¥10,000以下（經濟）",
+        price_mid: "¥1萬〜¥3萬（中等）",
+        price_premium: "¥3萬〜¥5萬（高級）",
+        price_luxury: "¥5萬以上（奢華）",
+        btn_search: "搜尋",
+        btn_more_options: "更多選項",
+        search_checkin: "入住日期",
+        search_guests: "人數",
+        guest_1: "1位旅客",
+        guest_2: "2位旅客",
+        guest_3: "3位旅客",
+        guest_4: "4位旅客",
+        guest_5: "5位以上",
+        results_title: "人氣飯店",
+        results_hotels_in: "的飯店",
+        results_showing: "顯示 {0} / {1} 間飯店",
+        results_no_location: "顯示 {0} / {1} 間飯店",
+        searching: "搜尋中...",
+        searching_hotels: "正在搜尋飯店...",
+        no_hotels_title: "找不到飯店",
+        no_hotels_desc: "請嘗試其他地點或調整篩選條件",
+        found_hotels: "在{1}找到{0}間飯店",
+        found_hotels_all: "找到{0}間飯店",
+        per_night: "/晚",
+        btn_book: "立即預約",
+        webmcp_title: "為 AI 智慧助理打造",
+        webmcp_desc: "WebMCP 啟用。Claude、Gemini 及 OpenAI 相容的 AI 可透過結構化工具呼叫直接搜尋飯店。",
+        webmcp_nl_title: "自然語言",
+        webmcp_nl_example: '"搜尋東京2人入住、每晚100美元以下的飯店"',
+        webmcp_nl_note: "AI 自動呼叫 searchJapaneseHotels 工具",
+        webmcp_dc_title: "直接工具呼叫",
+        webmcp_dc_note: "回傳含預約連結的結構化 JSON",
+        footer_desc: "台灣旅客首選的日本 AI 飯店搜尋工具。",
+        footer_regions: "區域",
+        footer_all: "所有飯店",
+        footer_hotels: "150+ 間嚴選飯店",
+        footer_pricing: "日圓 & 美元計價",
+        footer_affiliate: "使用聯盟連結",
+        footer_launched: "2026年3月上線",
+        footer_disclosure: "WebMCP 技術支援。所有價格為估算值，實際可能有所不同。聯盟揭露：部分連結可能產生佣金。",
+        click_to_search: "點擊搜尋飯店",
+      }
+    };
+
+    let currentLang = 'en';
+
+    function t(key, ...args) {
+      let text = i18n[currentLang]?.[key] || i18n.en[key] || key;
+      args.forEach((arg, i) => { text = text.replace(`{${i}}`, arg); });
+      return text;
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.body.setAttribute('data-lang', lang);
+      document.documentElement.lang = lang;
+
+      // Update lang switcher buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        const isActive = btn.dataset.lang === lang;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-checked', isActive);
+      });
+
+      // Update all data-i18n text content
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        el.textContent = t(key);
+      });
+
+      // Update data-i18n-html (for code blocks with quotes)
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.dataset.i18nHtml;
+        el.textContent = t(key);
+      });
+
+      // Update placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.dataset.i18nPlaceholder;
+        el.placeholder = t(key);
+      });
+
+      // Update select options
+      document.querySelectorAll('select option[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        el.textContent = t(key);
+      });
+
+      // Re-render current results with new language
+      if (hotels.length > 0) {
+        humanSearch();
+      }
+
+      // Save preference
+      try { localStorage.setItem('lang', lang); } catch(e) {}
+    }
+
+    // ============================================================
+    // Hotel Data & Core Logic
+    // ============================================================
+    let hotels = [];
+    let affiliateLinks = {};
+    const USD_RATE = 0.0067;
+    let currentRegion = '';
+
+    const hotelImageMap = {
+      'aman': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop',
+      'ritz': 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=400&fit=crop',
+      'hyatt': 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=400&fit=crop',
+      'four seasons': 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&h=400&fit=crop',
+      'peninsula': 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&h=400&fit=crop',
+      'mandarin': 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&h=400&fit=crop',
+      'bulgari': 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&h=400&fit=crop',
+      'ace': 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop',
+      'mitsui': 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&h=400&fit=crop',
+      'ryokan': 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&h=400&fit=crop',
+      'onsen': 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&h=400&fit=crop',
+      'hoshino': 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=400&fit=crop',
+      'starwood': 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&h=400&fit=crop',
+      'marriott': 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&h=400&fit=crop',
+      'hilton': 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&h=400&fit=crop',
+      'intercontinental': 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=400&fit=crop',
+      'sheraton': 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&h=400&fit=crop',
+      'westin': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop',
+      'nikko': 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&h=400&fit=crop',
+      'hakone': 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&h=400&fit=crop',
+      'capella': 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&h=400&fit=crop',
+      'rosewood': 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&h=400&fit=crop',
+      'w': 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop',
+      'trump': 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=400&fit=crop',
+      'park': 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=400&fit=crop',
+      'imperial': 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&h=400&fit=crop',
+      'okura': 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&h=400&fit=crop',
+      'palace': 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&h=400&fit=crop',
+      'conrad': 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&h=400&fit=crop',
+      'shangri': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop',
+      'regent': 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&h=400&fit=crop',
+      'edition': 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop',
+      'ritz-carlton reserve': 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&h=400&fit=crop',
+    };
+
+    const regionImages = {
+      tokyo: 'https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=600&h=400&fit=crop',
+      kyoto: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&h=400&fit=crop',
+      osaka: 'https://images.unsplash.com/photo-1590559899731-a382839e5549?w=600&h=400&fit=crop',
+      hokkaido: 'https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?w=600&h=400&fit=crop',
+      okinawa: 'https://images.unsplash.com/photo-1540202404-1b927e27fa8b?w=600&h=400&fit=crop',
+      yokohama: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&h=400&fit=crop',
+      hiroshima: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=600&h=400&fit=crop',
+      fukuoka: 'https://images.unsplash.com/photo-1528164344705-47542687000d?w=600&h=400&fit=crop',
+      nagoya: 'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=600&h=400&fit=crop',
+      fujisan: 'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=600&h=400&fit=crop',
+      default: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop'
+    };
+
+    function jpyToUsd(jpy) { return Math.round(jpy * USD_RATE); }
+
+    function getHotelImage(hotel) {
+      const name = hotel.name.toLowerCase();
+      for (const [keyword, url] of Object.entries(hotelImageMap)) {
+        if (name.includes(keyword)) return url;
+      }
+      return regionImages[hotel.area] || regionImages.default;
+    }
+
+    // Toast notification
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Mobile menu
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      const menu = document.getElementById('mobileMenu');
+      const isOpen = menu.classList.contains('open');
+      menu.classList.toggle('open');
+      this.setAttribute('aria-expanded', !isOpen);
+    });
+    document.querySelectorAll('#mobileMenu a').forEach(a => {
+      a.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('open');
+        document.getElementById('mobileMenuBtn').setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Toggle advanced search
+    function toggleAdvanced() {
+      const fields = document.getElementById('advancedFields');
+      const chevron = document.getElementById('advancedChevron');
+      const toggle = document.getElementById('advancedToggle');
+      const isOpen = !fields.classList.contains('hidden');
+      fields.classList.toggle('hidden');
+      chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+      toggle.setAttribute('aria-expanded', !isOpen);
+    }
+
+    // Initialize map
+    function initMap() {
+      const map = L.map('map').setView([36.2048, 138.2529], 5);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors, &copy; CartoDB',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      const areas = [
+        { name: 'Tokyo', lat: 35.6762, lng: 139.6503 },
+        { name: 'Kyoto', lat: 35.0116, lng: 135.7681 },
+        { name: 'Osaka', lat: 34.6937, lng: 135.5023 },
+        { name: 'Hokkaido', lat: 43.0618, lng: 141.3545 },
+        { name: 'Okinawa', lat: 26.2124, lng: 127.6792 },
+        { name: 'Yokohama', lat: 35.4437, lng: 139.6380 },
+        { name: 'Hiroshima', lat: 34.3853, lng: 132.4553 },
+        { name: 'Fukuoka', lat: 33.5904, lng: 130.4017 },
+        { name: 'Nagoya', lat: 35.1815, lng: 136.9066 },
+        { name: 'Mount Fuji', lat: 35.3606, lng: 138.7274 }
+      ];
+
+      const navyIcon = L.divIcon({
+        html: `<svg width="24" height="24" viewBox="0 0 24 24" fill="#1E3A8A"><circle cx="12" cy="12" r="8" fill="#1E3A8A" stroke="white" stroke-width="2"/></svg>`,
+        className: '',
+        iconSize: [24, 24],
+        iconAnchor: [12, 12]
+      });
+
+      areas.forEach(area => {
+        const marker = L.marker([area.lat, area.lng], { icon: navyIcon }).addTo(map);
+        marker.bindPopup(`<strong>${area.name}</strong><br>${t('click_to_search')}`);
+        marker.on('click', () => quickFilter(area.name));
+      });
+    }
+
+    // Load hotel data
+    async function loadHotels() {
+      try {
+        const response = await fetch('hotels.json');
+        const data = await response.json();
+        hotels = data.hotels;
+        affiliateLinks = data.affiliateLinks;
+        console.log(`Loaded ${hotels.length} hotels`);
+        const budget = hotels.filter(h => h.price <= 10000).slice(0, 4);
+        const mid = hotels.filter(h => h.price > 10000 && h.price <= 30000).slice(0, 4);
+        const luxury = hotels.filter(h => h.price > 30000).slice(0, 4);
+        showResults([...budget, ...mid, ...luxury]);
+        document.getElementById('resultsCount').textContent = t('results_showing', 12, hotels.length);
+      } catch (e) {
+        console.error('Data load error:', e);
+        hotels = [
+          {id:1,name:"Aman Tokyo",location:"Tokyo",price:120000,area:"tokyo",rating:9.6,desc:"Ultra-luxury in Otemachi with Mt. Fuji views"},
+          {id:2,name:"Park Hyatt Tokyo",location:"Tokyo",price:55000,area:"tokyo",rating:9.4,desc:"Shinjuku landmark, 'Lost in Translation' filming location"},
+          {id:3,name:"The Ritz-Carlton Tokyo",location:"Tokyo",price:70000,area:"tokyo",rating:9.5,desc:"Top floors of Roppongi, Tokyo Tower views"}
+        ];
+        showResults(hotels);
+      }
+    }
+
+    // WebMCP Tool Registration (multilingual descriptions)
+    if ('modelContext' in navigator) {
+      const mcpDescriptions = {
+        en: "Search top Japan hotels popular with international tourists. Returns curated list with direct booking links. Supports Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya.",
+        ja: "海外観光客に人気の日本ホテルを検索。予約リンク付きの厳選リストを返します。東京、京都、大阪、北海道、沖縄、横浜、広島、福岡、名古屋に対応。",
+        "zh-TW": "搜尋國際旅客愛用的日本精選飯店。回傳含直接預約連結的嚴選列表。支援東京、京都、大阪、北海道、沖繩、橫濱、廣島、福岡、名古屋。"
+      };
+
+      navigator.modelContext.registerTool({
+        name: "searchJapaneseHotels",
+        description: mcpDescriptions[currentLang] || mcpDescriptions.en,
+        inputSchema: {
+          type: "object",
+          properties: {
+            location: { type: "string", description: "City or region: Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya" },
+            checkin: { type: "string", description: "Check-in date (YYYY-MM-DD, optional)" },
+            guests: { type: "integer", description: "Number of guests (1-5, optional)" },
+            maxPrice: { type: "integer", description: "Max price per night in JPY (optional)" },
+            minRating: { type: "number", description: "Minimum rating 0-10 (optional)" }
+          },
+          required: ["location"]
+        },
+        execute: async (input) => {
+          const location = (input.location || "").toLowerCase();
+          const maxPrice = input.maxPrice || 999999;
+          const minRating = input.minRating || 0;
+          const filtered = hotels.filter(h => {
+            return (h.location.toLowerCase().includes(location) || h.area.toLowerCase().includes(location) || h.name.toLowerCase().includes(location))
+              && h.price <= maxPrice && h.rating >= minRating;
+          });
+          return {
+            success: true,
+            hotels: filtered.slice(0, 20).map(h => ({
+              name: h.name, location: h.location, price: h.price,
+              priceFormatted: `¥${h.price.toLocaleString()}+`, rating: h.rating,
+              description: h.desc,
+              bookingLink: affiliateLinks[h.area] || affiliateLinks.tokyo || "#"
+            })),
+            totalFound: filtered.length,
+            showing: Math.min(filtered.length, 20)
+          };
+        }
+      });
+    }
+
+    // Search
+    function humanSearch() {
+      const location = document.getElementById("searchLocation").value.trim();
+      const priceRange = document.getElementById("searchPriceRange").value;
+      let filtered = hotels;
+
+      if (location) {
+        filtered = filtered.filter(h =>
+          h.location.toLowerCase().includes(location.toLowerCase()) ||
+          h.area.toLowerCase().includes(location.toLowerCase()) ||
+          h.name.toLowerCase().includes(location.toLowerCase())
+        );
+      }
+      if (priceRange) {
+        const [min, max] = priceRange.split('-').map(Number);
+        filtered = filtered.filter(h => h.price >= min && h.price <= max);
+      }
+
+      document.getElementById('loading').classList.remove('hidden');
+      document.getElementById('results').classList.add('opacity-30');
+
+      setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('results').classList.remove('opacity-30');
+        const results = filtered.length > 0 ? filtered : hotels.slice(0, 12);
+        showResults(results);
+
+        const countText = location
+          ? t('results_showing', results.length, hotels.length)
+          : t('results_no_location', results.length, hotels.length);
+        document.getElementById('resultsCount').textContent = countText;
+
+        const titleKey = location ? 'results_hotels_in' : 'results_title';
+        document.getElementById('resultsTitle').textContent = location
+          ? `${location} ${t('results_hotels_in')}`
+          : t('results_title');
+
+        if (filtered.length > 0) {
+          showToast(location ? t('found_hotels', filtered.length, location) : t('found_hotels_all', filtered.length));
+        }
+      }, 400);
+    }
+
+    function quickFilter(location) {
+      currentRegion = location;
+      document.getElementById("searchLocation").value = location;
+
+      document.querySelectorAll('.region-btn').forEach(btn => {
+        btn.classList.remove('active');
+        const btnText = btn.textContent.trim();
+        if (btnText.includes(location) || (!location && btn.id === 'showAllBtn')) {
+          btn.classList.add('active');
+        }
+      });
+
+      humanSearch();
+      document.getElementById('hotels-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Lightbox
+    function openLightbox(imageUrl, title) {
+      const lightbox = document.createElement('div');
+      lightbox.className = 'lightbox active';
+      lightbox.setAttribute('role', 'dialog');
+      lightbox.setAttribute('aria-label', title);
+      lightbox.onclick = () => lightbox.remove();
+      lightbox.innerHTML = `
+        <div style="position: relative; text-align: center; padding: 20px;">
+          <img src="${imageUrl}" alt="${title}">
+          <p style="color: white; margin-top: 16px; font-size: 20px; font-weight: 600;">${title}</p>
+          <p style="color: rgba(255,255,255,0.6); margin-top: 8px; font-size: 13px;">Click anywhere to close</p>
+        </div>
+      `;
+      document.body.appendChild(lightbox);
+    }
+
+    // Render results
+    function showResults(results) {
+      const container = document.getElementById("results");
+      const perNight = t('per_night');
+      const btnBook = t('btn_book');
+
+      if (results.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-16">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.5" class="mx-auto mb-4" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M8 11h6"/>
+            </svg>
+            <p class="text-lg font-medium text-gray-500">${t('no_hotels_title')}</p>
+            <p class="mt-1 text-sm text-gray-400">${t('no_hotels_desc')}</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = results.map(h => {
+        const link = affiliateLinks[h.area] || "#";
+        const usdPrice = jpyToUsd(h.price);
+        const img = getHotelImage(h);
+        const ratingColor = h.rating >= 9.5 ? 'bg-gold-500' : h.rating >= 9.0 ? 'badge-rating' : 'bg-gray-700';
+        const bookingUrl = (link && !link.includes('YOUR_MYLINKBOX')) ? link : `https://www.google.com/search?q=${encodeURIComponent(h.name + ' ' + h.location + ' booking')}`;
+
+        return `
+          <article class="bg-white rounded-2xl shadow-sm card-hover overflow-hidden border border-gray-100">
+            <div class="relative">
+              <img src="${img}" alt="${h.name}" class="hotel-card-img" loading="lazy"
+                   onerror="this.src='${regionImages[h.area] || regionImages.default}'">
+              <span class="absolute top-3 right-3 ${ratingColor} text-white text-xs font-bold px-2.5 py-1 rounded-lg shadow">
+                ${h.rating}
+              </span>
+            </div>
+            <div class="p-5">
+              <h3 class="font-semibold text-base mb-1 leading-tight">${h.name}</h3>
+              <p class="text-gray-500 text-sm mb-3 flex items-center gap-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+                ${h.location}
+              </p>
+              <p class="text-gray-400 text-sm mb-4 line-clamp-2">${h.desc || ''}</p>
+              <div class="flex items-baseline justify-between mb-4">
+                <div>
+                  <span class="text-xl font-bold text-navy-600">¥${h.price.toLocaleString()}</span>
+                  <span class="text-xs text-gray-400 ml-1">${perNight}</span>
+                </div>
+                <span class="text-sm text-gray-400">~$${usdPrice}</span>
+              </div>
+              <a href="${bookingUrl}" target="_blank" rel="noopener noreferrer"
+                 class="btn-primary block w-full text-center text-sm cursor-pointer"
+                 aria-label="${btnBook} ${h.name}">
+                ${btnBook}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline ml-1" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.getElementById('mobileMenu').classList.remove('open');
+        }
+      });
+    });
+
+    // Init (always start in English, user can switch)
+    setLang('en');
+    loadHotels();
+    initMap();
+  </script>
+</body>
+</html>
