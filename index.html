@@ -721,6 +721,10 @@
     // ============================================================
     let hotels = [];
     let affiliateLinks = {};
+    function getAffLink(area) {
+      var langLinks = affiliateLinks[currentLang] || affiliateLinks.en || affiliateLinks;
+      return langLinks[area] || langLinks.tokyo || "#";
+    }
     const USD_RATE = 0.0067;
     let currentRegion = '';
 
@@ -913,7 +917,7 @@
               name: h.name, location: h.location, price: h.price,
               priceFormatted: `¥${h.price.toLocaleString()}+`, rating: h.rating,
               description: h.desc,
-              bookingLink: affiliateLinks[h.area] || affiliateLinks.tokyo || "#"
+              bookingLink: getAffLink(h.area)
             })),
             totalFound: filtered.length,
             showing: Math.min(filtered.length, 20)
@@ -1018,11 +1022,11 @@
       }
 
       container.innerHTML = results.map(h => {
-        const link = affiliateLinks[h.area] || "#";
+        const link = getAffLink(h.area);
         const usdPrice = jpyToUsd(h.price);
         const img = getHotelImage(h);
         const ratingColor = h.rating >= 9.5 ? 'bg-gold-500' : h.rating >= 9.0 ? 'badge-rating' : 'bg-gray-700';
-        const bookingUrl = (link && !link.includes('YOUR_MYLINKBOX')) ? link : `https://www.google.com/search?q=${encodeURIComponent(h.name + ' ' + h.location + ' booking')}`;
+        const bookingUrl = link !== "#" ? link : `https://www.google.com/search?q=${encodeURIComponent(h.name + ' ' + h.location + ' booking')}`;
 
         return `
           <article class="bg-white rounded-2xl shadow-sm card-hover overflow-hidden border border-gray-100">

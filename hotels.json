@@ -2,16 +2,42 @@
   "version": "2026-03-17",
   "note": "🔥 MyLinkBoxリンクをここに入れるだけでOK！バリューコマースで作成後、各URLを置き換えてください。",
   "affiliateLinks": {
-    "tokyo": "https://YOUR_MYLINKBOX_TOKYO_URL",
-    "kyoto": "https://YOUR_MYLINKBOX_KYOTO_URL",
-    "osaka": "https://YOUR_MYLINKBOX_OSAKA_URL",
-    "hokkaido": "https://YOUR_MYLINKBOX_HOKKAIDO_URL",
-    "okinawa": "https://YOUR_MYLINKBOX_OKINAWA_URL",
-    "fujisan": "https://YOUR_MYLINKBOX_FUJISAN_URL",
-    "hiroshima": "https://YOUR_MYLINKBOX_HIROSHIMA_URL",
-    "fukuoka": "https://YOUR_MYLINKBOX_FUKUOKA_URL",
-    "nagoya": "https://YOUR_MYLINKBOX_NAGOYA_URL",
-    "yokohama": "https://YOUR_MYLINKBOX_YOKOHAMA_URL"
+    "en": {
+      "tokyo": "https://www.jalan.net/en/Tokyo_13/",
+      "kyoto": "https://www.jalan.net/en/Kyoto_26/",
+      "osaka": "https://www.jalan.net/en/Osaka_27/",
+      "hokkaido": "https://www.jalan.net/en/Hokkaido_01/",
+      "okinawa": "https://www.jalan.net/en/Okinawa_47/",
+      "fujisan": "https://www.jalan.net/en/Yamanashi_19/",
+      "hiroshima": "https://www.jalan.net/en/Hiroshima_34/",
+      "fukuoka": "https://www.jalan.net/en/Fukuoka_40/",
+      "nagoya": "https://www.jalan.net/en/Aichi_23/",
+      "yokohama": "https://www.jalan.net/en/Kanagawa_14/"
+    },
+    "ja": {
+      "tokyo": "https://www.jalan.net/Tokyo_13/",
+      "kyoto": "https://www.jalan.net/Kyoto_26/",
+      "osaka": "https://www.jalan.net/Osaka_27/",
+      "hokkaido": "https://www.jalan.net/Hokkaido_01/",
+      "okinawa": "https://www.jalan.net/Okinawa_47/",
+      "fujisan": "https://www.jalan.net/Yamanashi_19/",
+      "hiroshima": "https://www.jalan.net/Hiroshima_34/",
+      "fukuoka": "https://www.jalan.net/Fukuoka_40/",
+      "nagoya": "https://www.jalan.net/Aichi_23/",
+      "yokohama": "https://www.jalan.net/Kanagawa_14/"
+    },
+    "zh-TW": {
+      "tokyo": "https://www.jalan.net/tn/Tokyo_13/",
+      "kyoto": "https://www.jalan.net/tn/Kyoto_26/",
+      "osaka": "https://www.jalan.net/tn/Osaka_27/",
+      "hokkaido": "https://www.jalan.net/tn/Hokkaido_01/",
+      "okinawa": "https://www.jalan.net/tn/Okinawa_47/",
+      "fujisan": "https://www.jalan.net/tn/Yamanashi_19/",
+      "hiroshima": "https://www.jalan.net/tn/Hiroshima_34/",
+      "fukuoka": "https://www.jalan.net/tn/Fukuoka_40/",
+      "nagoya": "https://www.jalan.net/tn/Aichi_23/",
+      "yokohama": "https://www.jalan.net/tn/Kanagawa_14/"
+    }
   },
   "hotels": [
     {"id":1,"name":"Aman Tokyo","location":"Tokyo","price":120000,"area":"tokyo","rating":9.6,"desc":"Ultra-luxury in Otemachi with Mt. Fuji views"},
