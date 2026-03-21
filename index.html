@@ -5,7 +5,7 @@
   <meta name="version" content="4">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Instant Booking | Japan Hotels for Foreign Tourists (WebMCP)</title>
-  <meta name="description" content="Search and book Japan's top hotels popular with international travelers. 150+ curated hotels in Tokyo, Kyoto, Osaka, Hokkaido, Okinawa. WebMCP enabled - AI agents can search directly!">
+  <meta name="description" content="Search and book Japan's top hotels popular with international travelers. 300+ curated hotels in Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Mount Fuji. WebMCP enabled - AI agents can search directly!">
   <meta name="keywords" content="Japan hotels, Tokyo hotel, Kyoto hotel, Osaka hotel, book Japan hotel, Japan travel, foreign tourist, WebMCP, AI booking">
   <meta name="author" content="AI Instant Booking">
   <meta name="robots" content="index, follow">
@@ -67,7 +67,55 @@
     body { font-family: 'Inter', system-ui, sans-serif; }
     body[data-lang="ja"] { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
     body[data-lang="zh-TW"] { font-family: 'Noto Sans TC', 'Inter', sans-serif; }
-    *:focus-visible { outline: 2px solid #1E3A8A; outline-offset: 2px; border-radius: 4px; }
+    *:focus-visible { outline: 3px solid #3B82F6; outline-offset: 2px; border-radius: 4px; }
+
+    /* UI/UX Improvements */
+    button, a, input, select, textarea {
+      min-height: 44px;
+    }
+    
+    button {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* Loading spinner */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.6s linear infinite;
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
 
     .hero-gradient {
       background: linear-gradient(135deg, #1E3A8A 0%, #172E6D 40%, #111F4D 100%);
@@ -305,7 +353,7 @@
         Japan's Finest Hotels,<br>Booked Instantly
       </h1>
       <p class="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-8 font-light" data-i18n="hero_desc">
-        150+ curated hotels loved by international travelers. AI agents can search directly.
+        200+ curated hotels loved by international travelers. AI agents can search directly.
       </p>
       <div class="flex flex-wrap justify-center gap-3">
         <a href="#search-section" class="btn-primary text-base">
@@ -423,11 +471,40 @@
 
     <!-- Results -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="hotels-section">
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h2 class="font-heading text-2xl font-bold" id="resultsTitle" data-i18n="results_title">Popular Hotels</h2>
-        <p class="text-sm text-gray-500" id="resultsCount"></p>
+        <div class="flex items-center gap-4">
+          <p class="text-sm text-gray-500" id="resultsCount"></p>
+          <!-- Sort Dropdown -->
+          <div class="flex items-center gap-2">
+            <label for="sortSelect" class="text-sm text-gray-500" data-i18n="sort_label">Sort by:</label>
+            <select id="sortSelect" class="search-input py-2 px-3 text-sm" onchange="sortHotels()" aria-label="Sort hotels">
+              <option value="popular" data-i18n="sort_popular">Popular</option>
+              <option value="price_asc" data-i18n="sort_price_asc">Price: Low to High</option>
+              <option value="price_desc" data-i18n="sort_price_desc">Price: High to Low</option>
+              <option value="rating" data-i18n="sort_rating">Rating</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div id="results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <!-- No Results Message -->
+      <div id="noResults" class="hidden col-span-full text-center py-16">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.5" class="mx-auto mb-4" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M8 11h6"/>
+        </svg>
+        <p class="text-lg font-medium text-gray-500" data-i18n="no_hotels_title">No hotels found</p>
+        <p class="mt-1 text-sm text-gray-400" data-i18n="no_hotels_desc">Try a different search.</p>
+      </div>
+      <!-- Load More Button -->
+      <div id="loadMoreContainer" class="hidden text-center mt-8">
+        <button id="loadMoreBtn" onclick="loadMoreHotels()" class="btn-primary px-8 py-3">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          <span data-i18n="btn_load_more">Load More Hotels</span>
+        </button>
+      </div>
       <div id="loading" class="hidden text-center py-16">
         <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-navy-600 border-t-transparent" role="status">
           <span class="sr-only" data-i18n="searching">Searching...</span>
@@ -499,7 +576,7 @@
         <div>
           <h4 class="font-semibold text-sm uppercase tracking-wide mb-3">Info</h4>
           <div class="text-sm text-gray-400 space-y-1">
-            <p data-i18n="footer_hotels">150+ curated hotels</p>
+            <p data-i18n="footer_hotels">200+ curated hotels</p>
             <p data-i18n="footer_pricing">JPY & USD pricing</p>
             <p data-i18n="footer_affiliate">Affiliate links used</p>
             <p data-i18n="footer_launched">Launched March 2026</p>
@@ -526,7 +603,7 @@
         nav_hotels: "Hotels",
         nav_forai: "For AI",
         hero_title: 'Japan\'s Finest Hotels,<br>Booked Instantly',
-        hero_desc: "150+ curated hotels loved by international travelers. AI agents can search directly.",
+        hero_desc: "200+ curated hotels loved by international travelers. AI agents can search directly.",
         hero_search_btn: "Search Hotels",
         hero_learn_btn: "Learn about WebMCP",
         explore_title: "Explore by Region",
@@ -555,6 +632,12 @@
         results_hotels_in: "Hotels",
         results_showing: "Showing {0} of {1} hotels",
         results_no_location: "Showing {0} of {1} hotels",
+        btn_load_more: "Load More Hotels",
+        sort_label: "Sort by:",
+        sort_popular: "Popular",
+        sort_price_asc: "Price: Low to High",
+        sort_price_desc: "Price: High to Low",
+        sort_rating: "Rating",
         searching: "Searching...",
         searching_hotels: "Searching hotels...",
         no_hotels_title: "No hotels found",
@@ -563,7 +646,6 @@
         found_hotels_all: "Found {0} hotels",
         per_night: "/night",
         btn_book: "Book Now",
-        btn_reviews: "Reviews",
         webmcp_title: "Built for AI Agents",
         webmcp_desc: "WebMCP enabled. Claude, Gemini, and OpenAI-compatible agents can search hotels directly via structured tool calls.",
         webmcp_nl_title: "Natural Language",
@@ -574,7 +656,7 @@
         footer_desc: "The first AI-compatible Japan hotel search tool for foreign tourists.",
         footer_regions: "Regions",
         footer_all: "All Hotels",
-        footer_hotels: "150+ curated hotels",
+        footer_hotels: "200+ curated hotels",
         footer_pricing: "JPY & USD pricing",
         footer_affiliate: "Affiliate links used",
         footer_launched: "Launched March 2026",
@@ -624,7 +706,6 @@
         found_hotels_all: "{0}件のホテルが見つかりました",
         per_night: "/泊",
         btn_book: "今すぐ予約",
-        btn_reviews: "レビュー",
         webmcp_title: "AIエージェント対応",
         webmcp_desc: "WebMCP対応。Claude、Gemini、OpenAI互換のAIエージェントが直接ホテル検索ツールを呼び出せます。",
         webmcp_nl_title: "自然言語",
@@ -685,7 +766,6 @@
         found_hotels_all: "找到{0}間飯店",
         per_night: "/晚",
         btn_book: "立即預約",
-        btn_reviews: "查看評價",
         webmcp_title: "為 AI 智慧助理打造",
         webmcp_desc: "WebMCP 啟用。Claude、Gemini 及 OpenAI 相容的 AI 可透過結構化工具呼叫直接搜尋飯店。",
         webmcp_nl_title: "自然語言",
@@ -763,11 +843,15 @@
     // ============================================================
     let hotels = [];
     let affiliateLinks = {};
+    let displayedCount = 0;
+    let currentFiltered = [];
+    const INITIAL_DISPLAY_COUNT = 24;
+    const LOAD_MORE_COUNT = 24;
     function getAffLink(area) {
       var langLinks = affiliateLinks[currentLang] || affiliateLinks.en || affiliateLinks;
       return langLinks[area] || langLinks.tokyo || "#";
     }
-    const USD_RATE = 0.0067;
+    const USD_RATE = 0.0065;
     let currentRegion = '';
 
     const hotelImageMap = {
@@ -791,6 +875,10 @@
       'westin': 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop',
       'nikko': 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&h=400&fit=crop',
       'hakone': 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=600&h=400&fit=crop',
+      'fuji': 'https://images.pexels.com/photos/35060327/pexels-photo-35060327.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      'kawaguchiko': 'https://images.pexels.com/photos/10320658/pexels-photo-10320658.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      'fujiyama': 'https://images.pexels.com/photos/20077185/pexels-photo-20077185.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
+      'highland resort': 'https://images.pexels.com/photos/31236896/pexels-photo-31236896.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
       'capella': 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&h=400&fit=crop',
       'rosewood': 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&h=400&fit=crop',
       'w': 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&h=400&fit=crop',
@@ -816,7 +904,7 @@
       hiroshima: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=600&h=400&fit=crop',
       fukuoka: 'https://images.unsplash.com/photo-1528164344705-47542687000d?w=600&h=400&fit=crop',
       nagoya: 'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=600&h=400&fit=crop',
-      fujisan: 'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=600&h=400&fit=crop',
+      fujisan: 'https://images.pexels.com/photos/33229964/pexels-photo-33229964.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop',
       default: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop'
     };
 
@@ -920,11 +1008,13 @@
         hotels = data.hotels;
         affiliateLinks = data.affiliateLinks;
         console.log(`Loaded ${hotels.length} hotels`);
-        const budget = hotels.filter(h => h.price <= 10000).slice(0, 4);
-        const mid = hotels.filter(h => h.price > 10000 && h.price <= 30000).slice(0, 4);
-        const luxury = hotels.filter(h => h.price > 30000).slice(0, 4);
-        showResults([...budget, ...mid, ...luxury]);
-        document.getElementById('resultsCount').textContent = t('results_showing', 12, hotels.length);
+        const budget = hotels.filter(h => h.price <= 10000).slice(0, 8);
+        const mid = hotels.filter(h => h.price > 10000 && h.price <= 30000).slice(0, 8);
+        const luxury = hotels.filter(h => h.price > 30000).slice(0, 8);
+        currentFiltered = [...budget, ...mid, ...luxury];
+        displayedCount = 0;
+        showResults(currentFiltered);
+        updateResultsCount(currentFiltered.length, hotels.length);
       } catch (e) {
         console.error('Data load error:', e);
         hotels = [
@@ -932,6 +1022,8 @@
           {id:2,name:"Park Hyatt Tokyo",location:"Tokyo",price:55000,area:"tokyo",rating:9.4,desc:"Shinjuku landmark, 'Lost in Translation' filming location"},
           {id:3,name:"The Ritz-Carlton Tokyo",location:"Tokyo",price:70000,area:"tokyo",rating:9.5,desc:"Top floors of Roppongi, Tokyo Tower views"}
         ];
+        currentFiltered = hotels;
+        displayedCount = 0;
         showResults(hotels);
       }
     }
@@ -939,9 +1031,9 @@
     // WebMCP Tool Registration (multilingual descriptions)
     if ('modelContext' in navigator) {
       const mcpDescriptions = {
-        en: "Search top Japan hotels popular with international tourists. Returns curated list with direct booking links. Supports Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya.",
-        ja: "海外観光客に人気の日本ホテルを検索。予約リンク付きの厳選リストを返します。東京、京都、大阪、北海道、沖縄、横浜、広島、福岡、名古屋に対応。",
-        "zh-TW": "搜尋國際旅客愛用的日本精選飯店。回傳含直接預約連結的嚴選列表。支援東京、京都、大阪、北海道、沖繩、橫濱、廣島、福岡、名古屋。"
+        en: "Search top Japan hotels popular with international tourists. Returns curated list with direct booking links. Supports Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya, Mount Fuji.",
+        ja: "海外観光客に人気の日本ホテルを検索。予約リンク付きの厳選リストを返します。東京、京都、大阪、北海道、沖縄、横浜、広島、福岡、名古屋、富士山に対応。",
+        "zh-TW": "搜尋國際旅客愛用的日本精選飯店。回傳含直接預約連結的嚴選列表。支援東京、京都、大阪、北海道、沖繩、橫濱、廣島、福岡、名古屋、富士山。"
       };
 
       navigator.modelContext.registerTool({
@@ -950,7 +1042,7 @@
         inputSchema: {
           type: "object",
           properties: {
-            location: { type: "string", description: "City or region: Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya" },
+            location: { type: "string", description: "City or region: Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya, Mount Fuji" },
             checkin: { type: "string", description: "Check-in date (YYYY-MM-DD, optional)" },
             guests: { type: "integer", description: "Number of guests (1-5, optional)" },
             maxPrice: { type: "integer", description: "Max price per night in JPY (optional)" },
@@ -962,8 +1054,10 @@
           const location = (input.location || "").toLowerCase();
           const maxPrice = input.maxPrice || 999999;
           const minRating = input.minRating || 0;
+          const aliasTarget = locationAliases[location] || '';
           const filtered = hotels.filter(h => {
-            return (h.location.toLowerCase().includes(location) || h.area.toLowerCase().includes(location) || h.name.toLowerCase().includes(location))
+            return (h.location.toLowerCase().includes(location) || h.area.toLowerCase().includes(location) || h.name.toLowerCase().includes(location)
+              || (aliasTarget && (h.location.toLowerCase().includes(aliasTarget) || h.area.toLowerCase().includes(aliasTarget))))
               && h.price <= maxPrice && h.rating >= minRating;
           });
           return {
@@ -972,7 +1066,8 @@
               name: h.name, location: h.location, price: h.price,
               priceFormatted: `¥${h.price.toLocaleString()}+`, rating: h.rating,
               description: h.desc,
-              bookingLink: getAffLink(h.area)
+              subArea: h.subArea,
+              bookingLink: h.bookUrl || h.jalanUrl || getAffLink(h.area)
             })),
             totalFound: filtered.length,
             showing: Math.min(filtered.length, 20)
@@ -981,6 +1076,16 @@
       });
     }
 
+    // Location aliases for flexible search
+    const locationAliases = {
+      'mount fuji': 'mt. fuji',
+      'fuji': 'mt. fuji',
+      'fujiyama': 'mt. fuji',
+      'hakone': 'mt. fuji',
+      'kawaguchiko': 'mt. fuji',
+      '富士山': 'mt. fuji'
+    };
+
     // Search
     function humanSearch() {
       const location = document.getElementById("searchLocation").value.trim();
@@ -988,10 +1093,16 @@
       let filtered = hotels;
 
       if (location) {
+        const locLower = location.toLowerCase();
+        const aliasTarget = locationAliases[locLower] || '';
         filtered = filtered.filter(h =>
-          h.location.toLowerCase().includes(location.toLowerCase()) ||
-          h.area.toLowerCase().includes(location.toLowerCase()) ||
-          h.name.toLowerCase().includes(location.toLowerCase())
+          h.location.toLowerCase().includes(locLower) ||
+          h.area.toLowerCase().includes(locLower) ||
+          h.name.toLowerCase().includes(locLower) ||
+          (aliasTarget && (
+            h.location.toLowerCase().includes(aliasTarget) ||
+            h.area.toLowerCase().includes(aliasTarget)
+          ))
         );
       }
       if (priceRange) {
@@ -1001,35 +1112,89 @@
 
       // Loading state
       const searchBtn = document.querySelector('form button[type="submit"]');
-      searchBtn.disabled = true;
-      searchBtn.innerHTML = '<svg class="animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20"/></svg>';
+      if (searchBtn) {
+        searchBtn.disabled = true;
+        searchBtn.innerHTML = '<svg class="animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20"/></svg>';
+      }
       document.getElementById('loading').classList.remove('hidden');
       document.getElementById('results').classList.add('opacity-30');
 
       setTimeout(() => {
-        searchBtn.disabled = false;
-        searchBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><span data-i18n="btn_search">Search</span>';
+        if (searchBtn) {
+          searchBtn.disabled = false;
+          searchBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><span data-i18n="btn_search">Search</span>';
+        }
         document.getElementById('loading').classList.add('hidden');
         document.getElementById('results').classList.remove('opacity-30');
-        showResults(filtered);
-
+        
+        // Store filtered results
+        currentFiltered = filtered;
+        
+        // Apply current sort
+        sortHotels(true);
+        
+        // Update title and count
         if (filtered.length > 0) {
-          const countText = location
-            ? t('results_showing', filtered.length, hotels.length)
-            : t('results_no_location', filtered.length, hotels.length);
-          document.getElementById('resultsCount').textContent = countText;
-          document.getElementById('resultsTitle').textContent = location
+          const titleEl = document.getElementById('resultsTitle');
+          titleEl.textContent = location
             ? `${location} ${t('results_hotels_in')}`
             : t('results_title');
+          titleEl.classList.remove('hidden');
         } else {
-          document.getElementById('resultsCount').textContent = '';
-          document.getElementById('resultsTitle').textContent = t('no_hotels_title');
+          document.getElementById('resultsTitle').classList.add('hidden');
         }
 
         if (filtered.length > 0) {
           showToast(location ? t('found_hotels', filtered.length, location) : t('found_hotels_all', filtered.length));
         }
       }, 400);
+    }
+
+    // Sort hotels
+    function sortHotels(resetDisplay = true) {
+      const sortBy = document.getElementById('sortSelect').value;
+      let sorted = [...currentFiltered];
+      
+      switch(sortBy) {
+        case 'price_asc':
+          sorted.sort((a, b) => a.price - b.price);
+          break;
+        case 'price_desc':
+          sorted.sort((a, b) => b.price - a.price);
+          break;
+        case 'rating':
+          sorted.sort((a, b) => b.rating - a.rating);
+          break;
+        case 'popular':
+        default:
+          // Keep original order (popular by default)
+          break;
+      }
+      
+      if (resetDisplay) {
+        displayedCount = 0;
+      }
+      
+      showResults(sorted, resetDisplay);
+    }
+
+    // Load more hotels
+    function loadMoreHotels() {
+      const btn = document.getElementById('loadMoreBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span>';
+      
+      setTimeout(() => {
+        displayedCount += LOAD_MORE_COUNT;
+        showResults(currentFiltered, false);
+        btn.disabled = false;
+        btn.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          <span data-i18n="btn_load_more">Load More Hotels</span>
+        `;
+      }, 300);
     }
 
     function quickFilter(location) {
@@ -1066,41 +1231,56 @@
     }
 
     // Render results
-    function showResults(results) {
+    function showResults(results, isInitial = true) {
       const container = document.getElementById("results");
+      const loadMoreContainer = document.getElementById('loadMoreContainer');
+      const noResults = document.getElementById('noResults');
+      const resultsCount = document.getElementById('resultsCount');
       const perNight = t('per_night');
       const btnBook = t('btn_book');
-      const btnReviews = t('btn_reviews');
 
       if (results.length === 0) {
-        container.innerHTML = `
-          <div class="col-span-full text-center py-16">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.5" class="mx-auto mb-4" aria-hidden="true">
-              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M8 11h6"/>
-            </svg>
-            <p class="text-lg font-medium text-gray-500">${t('no_hotels_title')}</p>
-            <p class="mt-1 text-sm text-gray-400">${t('no_hotels_desc')}</p>
-          </div>
-        `;
+        container.innerHTML = '';
+        loadMoreContainer.classList.add('hidden');
+        noResults.classList.remove('hidden');
+        resultsCount.textContent = '';
         return;
       }
+      
+      noResults.classList.add('hidden');
+      
+      // Initialize display count if this is initial load
+      if (isInitial) {
+        displayedCount = Math.min(INITIAL_DISPLAY_COUNT, results.length);
+      }
+      
+      // Get hotels to display
+      const toShow = results.slice(0, displayedCount);
+      
+      // Update results count
+      resultsCount.textContent = t('results_showing', toShow.length, results.length);
+      
+      // Show/hide load more button
+      if (displayedCount < results.length) {
+        loadMoreContainer.classList.remove('hidden');
+      } else {
+        loadMoreContainer.classList.add('hidden');
+      }
 
-      container.innerHTML = results.map(h => {
-        const link = getAffLink(h.area);
+      container.innerHTML = toShow.map(h => {
+        const link = h.bookUrl || h.jalanUrl || getAffLink(h.area);
         const usdPrice = jpyToUsd(h.price);
         const img = getHotelImage(h);
-        const ratingColor = h.rating >= 9.5 ? 'bg-gold-500' : h.rating >= 9.0 ? 'badge-rating' : 'bg-gray-700';
+        const ratingColor = h.rating >= 4.5 ? 'bg-gold-500' : h.rating >= 4.0 ? 'badge-rating' : 'bg-gray-700';
         const bookingUrl = link !== "#" ? link : `https://www.google.com/search?q=${encodeURIComponent(h.name + ' ' + h.location + ' booking')}`;
-        const reviewUrl = `https://www.google.com/search?q=${encodeURIComponent(h.name + ' ' + h.location + ' reviews')}`;
 
         return `
           <article class="bg-white rounded-2xl shadow-sm card-hover overflow-hidden border border-gray-100">
-            <div class="relative">
-              <img src="${img}" alt="${h.name}" class="hotel-card-img" loading="lazy"
-                   onerror="this.src='${regionImages[h.area] || regionImages.default}'">
-              <span class="absolute top-3 right-3 ${ratingColor} text-white text-xs font-bold px-2.5 py-1 rounded-lg shadow">
-                ${h.rating}
-              </span>
+            <div class="relative bg-gradient-to-br from-navy-600 to-navy-800 flex items-center justify-center" style="height:160px;border-radius:12px 12px 0 0;">
+              <div class="text-center text-white">
+                <p class="text-3xl font-bold">${h.rating}<span class="text-sm font-normal text-white/60"> / 5.0</span></p>
+                <p class="text-xs text-white/60 mt-1">${h.subArea || h.area} / ${h.location}</p>
+              </div>
             </div>
             <div class="p-5">
               <h3 class="font-semibold text-base mb-1 leading-tight">${h.name}</h3>
@@ -1108,7 +1288,7 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
                 </svg>
-                ${h.location}
+                ${h.subArea || h.area}, ${h.location}
               </p>
               <p class="text-gray-500 text-sm mb-4 line-clamp-2">${h.desc || ''}</p>
               <div class="flex items-baseline justify-between mb-4">
@@ -1126,18 +1306,15 @@
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
               </a>
-              <a href="${reviewUrl}" target="_blank" rel="noopener noreferrer"
-                 class="block w-full text-center text-sm mt-2 py-3 text-navy-600 hover:text-navy-800 font-medium border border-navy-100 hover:border-navy-200 rounded-xl transition cursor-pointer"
-                 aria-label="Reviews ${h.name}">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="inline mr-1" aria-hidden="true">
-                  <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-                </svg>
-                ${btnReviews}
-              </a>
             </div>
           </article>
         `;
       }).join('');
+    }
+
+    function updateResultsCount(shown, total) {
+      const el = document.getElementById('resultsCount');
+      if (el) el.textContent = t('results_showing', shown, total);
     }
 
     // Smooth scroll
