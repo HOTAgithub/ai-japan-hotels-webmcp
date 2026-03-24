@@ -663,15 +663,15 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="search-section">
       <div class="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
         <h2 class="font-heading text-2xl font-bold mb-6 text-center" data-i18n="search_title">Find Your Perfect Stay</h2>
-        <form onsubmit="event.preventDefault(); humanSearch();" aria-label="Hotel search form" toolname="searchJapaneseHotels" tooldescription="Search hotels across Japan by location, price range, dates, and guests. Returns matching hotels with prices, ratings, and booking links.">
+        <form onsubmit="event.preventDefault(); humanSearch();" aria-label="Hotel search form" toolname="searchJapaneseHotels" tooldescription="Search hotels across Japan by location, price range, dates, and guests. Returns matching hotels with prices, ratings, and booking links." toolautosubmit>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label for="searchLocation" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_location">Location</label>
-              <input id="searchLocation" class="search-input w-full" data-i18n-placeholder="search_location_ph" placeholder="Tokyo, Kyoto, Osaka..." aria-label="Search by location">
+              <input id="searchLocation" name="location" toolparamdescription="City or region to search. Examples: Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya, Mt. Fuji. Japanese names also accepted." class="search-input w-full" data-i18n-placeholder="search_location_ph" placeholder="Tokyo, Kyoto, Osaka..." aria-label="Search by location">
             </div>
             <div>
               <label for="searchPriceRange" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_price">Price Range</label>
-              <select id="searchPriceRange" class="search-input w-full" aria-label="Price range">
+              <select id="searchPriceRange" name="priceRange" toolparamdescription="Price range filter. Values: empty (all), 0-10000 (budget), 10000-30000 (mid), 30000-50000 (premium), 50000-999999 (luxury)." class="search-input w-full" aria-label="Price range">
                 <option value="" data-i18n="price_all">All Prices</option>
                 <option value="0-10000" data-i18n="price_budget">Under ¥10,000 (Budget)</option>
                 <option value="10000-30000" data-i18n="price_mid">¥10k–¥30k (Mid)</option>
@@ -691,15 +691,15 @@
           <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label for="searchDate" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_checkin">Check-in Date</label>
-              <input id="searchDate" type="date" class="search-input w-full" aria-label="Check-in date">
+              <input id="searchDate" name="checkin" type="date" toolparamdescription="Check-in date in YYYY-MM-DD format (optional)." class="search-input w-full" aria-label="Check-in date">
             </div>
             <div>
               <label for="searchCheckout" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_checkout">Check-out Date</label>
-              <input id="searchCheckout" type="date" class="search-input w-full" aria-label="Check-out date">
+              <input id="searchCheckout" name="checkout" type="date" toolparamdescription="Check-out date in YYYY-MM-DD format (optional)." class="search-input w-full" aria-label="Check-out date">
             </div>
             <div>
               <label for="searchGuests" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_guests">Guests</label>
-              <select id="searchGuests" class="search-input w-full" aria-label="Number of guests">
+              <select id="searchGuests" name="guests" toolparamdescription="Number of guests. Values: 1, 2, 3, 4, 5. Default: 2." class="search-input w-full" aria-label="Number of guests">
                 <option value="1" data-i18n="guest_1">1 Guest</option>
                 <option value="2" selected data-i18n="guest_2">2 Guests</option>
                 <option value="3" data-i18n="guest_3">3 Guests</option>
@@ -1346,51 +1346,8 @@
       }
     }
 
-    // WebMCP Tool Registration (multilingual descriptions)
-    if ('modelContext' in navigator) {
-      const mcpDescriptions = {
-        en: "Search top Japan hotels popular with international tourists. Returns curated list with direct booking links. Supports Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya.",
-        ja: "海外観光客に人気の日本ホテルを検索。予約リンク付きの厳選リストを返します。東京、京都、大阪、北海道、沖縄、横浜、広島、福岡、名古屋に対応。",
-        "zh-TW": "搜尋國際旅客愛用的日本精選飯店。回傳含直接預約連結的嚴選列表。支援東京、京都、大阪、北海道、沖繩、橫濱、廣島、福岡、名古屋。"
-      };
-
-      navigator.modelContext.registerTool({
-        name: "searchJapaneseHotels",
-        description: mcpDescriptions[currentLang] || mcpDescriptions.en,
-        inputSchema: {
-          type: "object",
-          properties: {
-            location: { type: "string", description: "City or region: Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya" },
-            checkin: { type: "string", description: "Check-in date (YYYY-MM-DD, optional)" },
-            guests: { type: "integer", description: "Number of guests (1-5, optional)" },
-            maxPrice: { type: "integer", description: "Max price per night in JPY (optional)" },
-            minRating: { type: "number", description: "Minimum rating 0-10 (optional)" }
-          },
-          required: ["location"]
-        },
-        execute: async (input) => {
-          const location = (input.location || "").toLowerCase();
-          const maxPrice = input.maxPrice || 999999;
-          const minRating = input.minRating || 0;
-          const filtered = hotels.filter(h => {
-            return (h.location.toLowerCase().includes(location) || h.area.toLowerCase().includes(location) || h.name.toLowerCase().includes(location))
-              && h.price <= maxPrice && h.rating >= minRating;
-          });
-          return {
-            success: true,
-            hotels: filtered.slice(0, 20).map(h => ({
-              name: h.name, location: h.location, price: h.price,
-              priceFormatted: `¥${h.price.toLocaleString()}+`, rating: h.rating,
-              description: h.desc,
-              subArea: h.subArea,
-              bookingLink: h.bookUrl || h.jalanUrl || getAffLink(h.area)
-            })),
-            totalFound: filtered.length,
-            showing: Math.min(filtered.length, 20)
-          };
-        }
-      });
-    }
+    // WebMCP Tool Registration is handled by initWebMCP() below
+    // (moved to avoid duplicate registration)
 
     // Location alias mapping for flexible search
     const locationAliases = {
@@ -1726,7 +1683,8 @@
             }
           }
         },
-        handler: async ({ location = '', priceMin = 0, priceMax = 999999, guests = 2, checkin = '', checkout = '', limit = 10 }) => {
+        execute: async (input, client) => {
+          const { location = '', priceMin = 0, priceMax = 999999, guests = 2, checkin = '', checkout = '', limit = 10 } = input;
           let filtered = [...hotels];
 
           // Filter by location
@@ -1767,7 +1725,8 @@
               area: h.area
             }))
           };
-        }
+        },
+        annotations: { readOnlyHint: false }
       });
 
       // Tool 2: getHotelRegions - List available regions
@@ -1778,7 +1737,8 @@
           type: 'object',
           properties: {}
         },
-        handler: async () => {
+        annotations: { readOnlyHint: true },
+        execute: async (input, client) => {
           const regions = {};
           hotels.forEach(h => {
             const region = h.location;
