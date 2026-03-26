@@ -1,145 +1,176 @@
-# 🏨 AI Japan Hotels — WebMCP Enabled
+<div align="center">
 
-> The world's first **WebMCP-enabled** Japan hotel search tool for international travelers. AI agents (Claude, Gemini, OpenAI) can search directly via structured tool calls.
+# 🇯🇵 AI Japan Hotels
 
-![WebMCP](https://img.shields.io/badge/WebMCP-Enabled-blue)
-![Multilingual](https://img.shields.io/badge/Languages-EN%20%7C%20JA%20%7C%20ZH--TW-green)
-![Hotels](https://img.shields.io/badge/Hotels-175%2B-orange)
+### The world's first **WebMCP-native** hotel booking site.
+### Ask any AI to book your Japan trip — it just works.
 
-## ✨ Features
+[![Live Demo](https://img.shields.io/badge/🌐-Live_Demo-blue?style=for-the-badge&logo=cloudflare&logoColor=white)](https://ai-japan-hotels.pages.dev/)
+[![WebMCP](https://img.shields.io/badge/WebMCP-Chrome_146+-9cf?style=flat-square&logo=googlechrome)](https://developer.chrome.com/docs/web-apis/model-context)
+[![323 Hotels](https://img.shields.io/badge/🏨-323_Hotels-orange?style=flat-square)](#-covered-regions)
+[![4 Languages](https://img.shields.io/badge/🗣️-EN_JA_KO_ZH--TW-green?style=flat-square)](#-supported-languages)
 
-- **WebMCP Native** — AI agents discover `searchJapaneseHotels` tool automatically via `navigator.modelContext`
-- **Multilingual UI** — English, Japanese (日本語), Traditional Chinese (繁體中文) with one-click language switcher
-- **175+ Curated Hotels** — Budget to luxury, covering 10 regions across Japan
-- **Interactive Map** — Leaflet.js map with region-based hotel filtering
-- **Smart Search** — Filter by location, price range, check-in date, and guest count
-- **Dual Currency** — JPY and USD price display
-- **Responsive Design** — Mobile-first with Tailwind CSS
-- **AI-Friendly** — Structured tool schema with multilingual descriptions for AI agent discovery
+<img src="https://images.unsplash.com/photo-1528164344705-47542687000d?w=800&h=400&fit=crop" alt="Okinawa Beach" width="800">
 
-## 🤖 How AI Agents Use This
+**Try it now** → Open [ai-japan-hotels.pages.dev](https://ai-japan-hotels.pages.dev/) and ask Claude:
+> *"Find me a hotel in Kyoto under ¥30,000 for 2 guests"*
 
-When an AI agent (e.g., Claude with browser access) visits this page, it automatically discovers the WebMCP tool:
+</div>
 
-```javascript
-// Tool auto-registered via navigator.modelContext
-searchJapaneseHotels({
-  location: "Tokyo",      // Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, etc.
-  checkin: "2026-04-01",  // Optional: YYYY-MM-DD
-  guests: 2,             // Optional: 1-5
-  maxPrice: 30000,       // Optional: Max price in JPY
-  minRating: 9.0         // Optional: Minimum rating 0-10
-})
+---
 
-// Returns:
-{
-  success: true,
-  hotels: [
-    { name: "Aman Tokyo", price: 120000, rating: 9.6, bookingLink: "..." },
-    ...
-  ],
-  totalFound: 15,
-  showing: 15
-}
+## 🤯 What is this?
+
+A single HTML file. No build step. No backend. No API key needed.
+
+Just open the page and **any AI agent that supports WebMCP** (Chrome 146+) can:
+- 🔍 Search 323 hotels across 10 regions
+- 💰 Compare prices in JPY & USD
+- 🌏 Return results in the visitor's language
+- 🔗 Provide direct booking links
+
+This is what the **AI-native web** looks like.
+
+## 🎮 How it works
+
+```
+You:  "Find cheap hotels in Osaka"
+  ↓
+AI:  [Discovers searchJapaneseHotels tool via WebMCP]
+  ↓
+AI:  [Calls tool with location="Osaka", maxPrice=10000]
+  ↓
+AI:  "Found 8 budget hotels in Osaka:
+      Hotel Business Mercury Inn — ¥6,475/night ⭐3.5
+      Confesta Inn — ¥5,940/night ⭐3.5
+      ..."
+  ↓
+You:  "Book the first one!" → [Clicks booking link]
 ```
 
-**Natural language example:**
-> "Search Kyoto hotels under ¥50,000 for 2 guests"
-
-AI automatically calls the tool and returns structured results with direct booking links.
-
-## 🌏 Supported Languages
-
-| Language | Code | Audience |
-|----------|------|----------|
-| English | `en` | Global travelers |
-| Japanese | `ja` | Domestic users |
-| Traditional Chinese | `zh-TW` | Taiwan travelers |
-
-The language preference is saved in `localStorage` and persists across sessions.
+No API integration. No OAuth. The AI agent reads the page, discovers the tool, and executes it — all client-side.
 
 ## 🗾 Covered Regions
 
-- **Tokyo** — Shinjuku, Shibuya, Ginza, Otemachi
-- **Kyoto** — Historic temples, traditional ryokans
-- **Osaka** — Dotonbori, Namba, Umeda
-- **Hokkaido** — Sapporo, Niseko, ski resorts
-- **Okinawa** — Beach resorts, coral reefs
-- **Yokohama** — Minato Mirai, Chinatown
-- **Hiroshima** — Peace Memorial, Miyajima
-- **Fukuoka** — Hakata, Canal City
-- **Nagoya** — Central Japan hub
-- **Mount Fuji** — Hakone, Fuji Five Lakes
+| Region | Vibe | Hotels |
+|--------|------|--------|
+| 🗼 **Tokyo** | Neon streets, Shibuya crossing, ancient temples | 30 |
+| ⛩️ **Kyoto** | Golden pavilion, bamboo groves, geisha district | 30 |
+| 🏯 **Osaka** | Street food capital, Dotonbori neon, castle | 30 |
+| ❄️ **Hokkaido** | Powder snow, blue ponds, hot springs | 30 |
+| 🏖️ **Okinawa** | Crystal waters, coral reefs, tropical islands | 30 |
+| 🌉 **Yokohama** | Chinatown, port skyline, ramen street | 30 |
+| ☮️ **Hiroshima** | Peace Memorial, Miyajima floating torii | 30 |
+| 🍜 **Fukuoka** | Yatai stalls, Canal City, Hakata tower | 30 |
+| 🏰 **Nagoya** | Castle, central hub, hidden gems | 30 |
+| 🗻 **Mount Fuji** | Kawaguchiko, ryokans, luxury onsen resorts | 53 |
 
-## 🚀 Quick Start
+## 🌏 Supported Languages
 
-### Local Development
+| Language | Speakers | Coverage |
+|----------|----------|----------|
+| 🇺🇸 English | 1.5B | Full UI + hotel names/descriptions |
+| 🇯🇵 日本語 | 125M | Full UI + hotel names/descriptions |
+| 🇰🇷 한국어 | 80M | Full UI + hotel names/descriptions |
+| 🇹🇼 繁體中文 | 50M | Full UI + hotel names/descriptions |
 
-```bash
-# Clone the repository
-git clone https://github.com/HOTAgithub/ai-japan-hotels-webmcp.git
-cd ai-japan-hotels-webmcp
+Language detection is automatic. Hotels are shown in the visitor's language with proper translations — not machine-translated on the fly, but pre-translated for accuracy.
 
-# Start a local server
-python -m http.server 8080
-# Open http://localhost:8080
+## 🛠️ Tech Stack
+
+```
+index.html    → 2200 lines. Zero dependencies. One file.
+hotels.json   → 323 hotels, 4 languages, affiliate links
 ```
 
-### GitHub Pages Deployment
-
-1. Go to **Settings → Pages**
-2. Source: **Deploy from a branch**
-3. Branch: `main` / `/ (root)`
-4. Save — your site will be live at `https://HOTAgithub.github.io/ai-japan-hotels-webmcp/`
+- **WebMCP** — `navigator.modelContext.registerTool()` for AI agent discovery
+- **Tailwind CSS** — Utility-first styling
+- **Leaflet.js** — Interactive map
+- **Vanilla JS** — No React, no build, no node_modules
+- **Google Fonts** — Lazy-loaded CJK fonts (~200KB saved)
 
 ## 📁 File Structure
 
 ```
 ai-japan-hotels-webmcp/
-├── index.html          # Main application (single file, multilingual)
-├── hotels.json         # Hotel data (175+ entries with affiliate links)
+├── index.html          # Everything (HTML + CSS + JS + i18n + WebMCP)
+├── hotels.json         # 323 hotels, 4 languages, affiliate links
+├── images/             # Region images (hokkaido.jpg, okinawa.jpg)
+├── robots.txt          # Crawler rules
+├── sitemap.xml         # SEO sitemap
+├── _headers            # Cloudflare Pages headers
 ├── README.md           # This file
 └── SETUP-GUIDE.md      # Setup instructions
 ```
 
-## 🔧 Tech Stack
+## 🚀 Run Locally
 
-- **WebMCP** — `navigator.modelContext.registerTool()` for AI agent integration
-- **Tailwind CSS** — Utility-first styling via CDN
-- **Leaflet.js** — Interactive map with CartoDB tiles
-- **Vanilla JavaScript** — No build step, zero dependencies
-- **Google Fonts** — Cormorant Garamond, Inter, Noto Sans JP/TC
+```bash
+git clone https://github.com/HOTAgithub/ai-japan-hotels-webmcp.git
+cd ai-japan-hotels-webmcp
+python -m http.server 8080
+# → http://localhost:8080
+```
 
-## 📋 WebMCP Tool Schema
+That's it. No `npm install`. No `docker compose up`. Just open it.
+
+## 🔧 WebMCP Tool Schema
 
 ```json
 {
   "name": "searchJapaneseHotels",
-  "description": "Search top Japan hotels popular with international tourists",
+  "description": "Search 323+ hotels across Japan by location, price, dates, and guests. Returns hotel names, prices (JPY & USD), ratings, and direct booking links in the user's language.",
   "inputSchema": {
     "type": "object",
     "properties": {
-      "location": { "type": "string" },
-      "checkin": { "type": "string" },
-      "guests": { "type": "integer" },
-      "maxPrice": { "type": "integer" },
-      "minRating": { "type": "number" }
+      "location": { "type": "string", "description": "City or region: Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya, Mt. Fuji" },
+      "priceRange": { "type": "string" },
+      "checkin": { "type": "string", "format": "date" },
+      "checkout": { "type": "string", "format": "date" },
+      "guests": { "type": "integer" }
     },
     "required": ["location"]
   }
 }
 ```
 
+## 📊 Why This Matters
+
+<details>
+<summary>📊 The WebMCP opportunity (click to expand)</summary>
+
+- **Chrome 146** is bringing WebMCP to stable — the first browser-native AI tool protocol
+- **Forbes** called early WebMCP adopters "the next wave of AI-native websites"
+- **Rakuten Travel** launched an MCP server, but doesn't target foreign tourists
+- **No one else** combines WebMCP + multilingual + Japan hotel affiliate in one page
+- First-mover advantage is real — this is the empty stadium moment
+</details>
+
+<details>
+<summary>💰 Revenue model</summary>
+
+- ValueCommerce affiliate links on every hotel → commission per booking
+- 323 hotels × 4 languages = 1,292 affiliate entry points
+- Average commission: ~3-5% of booking price
+- Target: international tourists spending ¥15,000-¥150,000/night
+</details>
+
 ## ⚠️ Disclaimer
 
-- All prices are estimates and may vary by season and availability
+- Prices are estimates and may vary by season and availability
 - Affiliate links are used — we may earn commissions from bookings
-- This is an independent project and is not affiliated with any hotel chain or booking platform
+- Independent project, not affiliated with any hotel chain or booking platform
 
 ## 📄 License
 
-MIT
+MIT — use it, fork it, build on it.
 
 ---
 
+<div align="center">
+
 **Built with ❤️ for the AI-native web**
+
+*The future of the web isn't websites — it's tools.*
+
+</div>

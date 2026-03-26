@@ -1,0 +1,56 @@
+# Temporary translation files
+_translate_input.json
+_translate_output.json
+_translate_log.txt
+_checkpoint.json
+_batch1.json
+_batch2.json
+_batch3.json
+
+# Python scripts (used for data processing, not part of the app)
+translate_all.py
+merge_translations.py
+analyze.py
+analyze_hotels.py
+apply-images.py
+fetch_hotel_images.py
+fetch_jalan_images.py
+scrape_jalan.py
+parse_jalan.py
+process_hotels.py
+extract_hotels.py
+fetch-correct-urls.py
+export_names.py
+
+# PowerShell scripts
+*.ps1
+
+# Debug files
+debug-fetch.ps1
+debug_jalan.py
+jalan_tokyo.html
+jalan_tokyo_debug.html
+tokyo_hotels_cleaned.json
+tokyo_hotels_scrapling.json
+
+# Data files (intermediate)
+hotel_list.tsv
+hotel_names.txt
+photo_ids.tsv
+photo_url_map.tsv
+queries.txt
+x-posts.txt
+
+# Logs
+*.md
+!README.md
+!SETUP-GUIDE.md
+
+# Environment
+.wrangler/
+.wranglerignore
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
