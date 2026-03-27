@@ -51,6 +51,9 @@ x-posts.txt
 .wranglerignore
 node_modules/
 
+# Affiliate credentials (contains sid/pid - DO NOT commit)
+config.js
+
 # OS
 .DS_Store
 Thumbs.db

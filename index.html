@@ -30,7 +30,7 @@
   <meta property="og:locale:alternate" content="ko_KR" />
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI Instant Booking | Japan Hotels for Foreign Tourists">
-  <meta name="twitter:description" content="300+ curated Japan hotels. Tokyo, Kyoto, Osaka & more. AI-compatible booking.">
+  <meta name="twitter:description" content="320+ curated Japan hotels. Tokyo, Kyoto, Osaka & more. AI-compatible booking.">
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?w=1200&h=630&fit=crop">
   <script type="application/ld+json">
   {
@@ -38,7 +38,7 @@
   "@type": "ItemList",
   "name": "Best Hotels in Japan for Foreign Tourists",
   "description": "Curated selection of Japan's top hotels popular with international travelers.",
-  "numberOfItems": 300,
+  "numberOfItems": 323,
   "itemListElement": [
     {
       "@type": "ListItem",
@@ -593,7 +593,7 @@
       "name": "Can foreigners book hotels in Japan easily?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! Many Japanese hotels accept online bookings from international travelers. AI Instant Booking aggregates 300+ hotels across Japan with English-friendly booking links through Jalan.net."
+        "text": "Yes! Many Japanese hotels accept online bookings from international travelers. AI Instant Booking aggregates 320+ hotels across Japan with English-friendly booking links through Jalan.net."
       }
     },
     {
@@ -623,9 +623,7 @@
   ]
 }
 </script>
-  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS (built, ~15KB instead of ~300KB CDN) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
@@ -657,25 +655,10 @@
       }
     })();
   </script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: { 50: '#f0f4ff', 100: '#dbe4ff', 200: '#bac8ff', 500: '#3B82F6', 600: '#1E3A8A', 700: '#172E6D', 800: '#111F4D', 900: '#0C1433' },
-            gold: { 400: '#D4A843', 500: '#B8860B', 600: '#A16207' },
-          },
-          fontFamily: {
-            heading: ['Cormorant Garamond', 'Georgia', 'serif'],
-            body: ['Inter', 'system-ui', 'sans-serif'],
-            jp: ['Noto Sans JP', 'Inter', 'sans-serif'],
-            tc: ['Noto Sans TC', 'Inter', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
+  <!-- Tailwind config no longer needed (built into CSS) -->
   <style>
+    *,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0}.bottom-3{bottom:.75rem}.left-3{left:.75rem}.left-4{left:1rem}.right-4{right:1rem}.top-0{top:0}.top-3{top:.75rem}.z-50{z-index:50}.col-span-full{grid-column:1/-1}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-1{margin-left:.25rem}.mt-1{margin-top:.25rem}.mt-10{margin-top:2.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.mt-8{margin-top:2rem}.line-clamp-2{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}.block{display:block}.inline-block{display:inline-block}.inline{display:inline}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-14{height:3.5rem}.h-16{height:4rem}.h-20{height:5rem}.h-full{height:100%}.min-h-screen{min-height:100vh}.w-10{width:2.5rem}.w-14{width:3.5rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-4xl{max-width:56rem}.max-w-7xl{max-width:80rem}.max-w-xl{max-width:36rem}@keyframes spin{to{transform:rotate(1turn)}}.animate-spin{animation:spin 1s linear infinite}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-end{align-items:flex-end}.items-center{align-items:center}.items-baseline{align-items:baseline}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:.25rem}.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem*var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-4{border-width:4px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-\[\#E9EEF5\]{--tw-border-opacity:1;border-color:rgb(233 238 245/var(--tw-border-opacity,1))}.border-gray-100{--tw-border-opacity:1;border-color:rgb(243 244 246/var(--tw-border-opacity,1))}.border-gray-200{--tw-border-opacity:1;border-color:rgb(229 231 235/var(--tw-border-opacity,1))}.border-gray-800{--tw-border-opacity:1;border-color:rgb(31 41 55/var(--tw-border-opacity,1))}.border-navy-600{--tw-border-opacity:1;border-color:rgb(30 58 138/var(--tw-border-opacity,1))}.border-white\/20{border-color:hsla(0,0%,100%,.2)}.border-white\/30{border-color:hsla(0,0%,100%,.3)}.border-t-transparent{border-top-color:transparent}.bg-\[\#F8FAFC\]{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-gold-500{--tw-bg-opacity:1;background-color:rgb(184 134 11/var(--tw-bg-opacity,1))}.bg-gray-50{--tw-bg-opacity:1;background-color:rgb(249 250 251/var(--tw-bg-opacity,1))}.bg-gray-700{--tw-bg-opacity:1;background-color:rgb(55 65 81/var(--tw-bg-opacity,1))}.bg-navy-50{--tw-bg-opacity:1;background-color:rgb(240 244 255/var(--tw-bg-opacity,1))}.bg-navy-600{--tw-bg-opacity:1;background-color:rgb(30 58 138/var(--tw-bg-opacity,1))}.bg-navy-900{--tw-bg-opacity:1;background-color:rgb(12 20 51/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-white\/10{background-color:hsla(0,0%,100%,.1)}.bg-gradient-to-t{background-image:linear-gradient(to top,var(--tw-gradient-stops))}.from-black\/60{--tw-gradient-from:rgba(0,0,0,.6) var(--tw-gradient-from-position);--tw-gradient-to:transparent var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.via-black\/20{--tw-gradient-to:transparent var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),rgba(0,0,0,.2) var(--tw-gradient-via-position),var(--tw-gradient-to)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.object-cover{-o-object-fit:cover;object-fit:cover}.p-2{padding:.5rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-3\.5{padding-top:.875rem;padding-bottom:.875rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pb-4{padding-bottom:1rem}.pt-6{padding-top:1.5rem}.text-center{text-align:center}.text-right{text-align:right}.font-heading{font-family:Cormorant Garamond,Georgia,serif}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-light{font-weight:300}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.tracking-wide{letter-spacing:.025em}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216/var(--tw-text-opacity,1))}.text-emerald-600{--tw-text-opacity:1;color:rgb(5 150 105/var(--tw-text-opacity,1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175/var(--tw-text-opacity,1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128/var(--tw-text-opacity,1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99/var(--tw-text-opacity,1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81/var(--tw-text-opacity,1))}.text-navy-600{--tw-text-opacity:1;color:rgb(30 58 138/var(--tw-text-opacity,1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.text-white\/30{color:hsla(0,0%,100%,.3)}.text-white\/40{color:hsla(0,0%,100%,.4)}.text-white\/50{color:hsla(0,0%,100%,.5)}.text-white\/60{color:hsla(0,0%,100%,.6)}.text-white\/70{color:hsla(0,0%,100%,.7)}.text-white\/80{color:hsla(0,0%,100%,.8)}.opacity-30{opacity:.3}.shadow-lg{--tw-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color)}.shadow-lg,.shadow-sm{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color)}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.hover\:bg-blue-50:hover{--tw-bg-opacity:1;background-color:rgb(239 246 255/var(--tw-bg-opacity,1))}.hover\:bg-gray-100:hover{--tw-bg-opacity:1;background-color:rgb(243 244 246/var(--tw-bg-opacity,1))}.hover\:bg-gray-50:hover{--tw-bg-opacity:1;background-color:rgb(249 250 251/var(--tw-bg-opacity,1))}.hover\:bg-white\/20:hover{background-color:hsla(0,0%,100%,.2)}.hover\:text-navy-600:hover{--tw-text-opacity:1;color:rgb(30 58 138/var(--tw-text-opacity,1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:inline{display:inline}.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:p-10{padding:2.5rem}.sm\:p-6{padding:1.5rem}.sm\:p-8{padding:2rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:py-20{padding-top:5rem;padding-bottom:5rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}.sm\:text-5xl{font-size:3rem;line-height:1}.sm\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}}@media (min-width:1024px){.lg\:flex{display:flex}.lg\:hidden{display:none}.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.lg\:px-8{padding-left:2rem;padding-right:2rem}.lg\:py-24{padding-top:6rem;padding-bottom:6rem}.lg\:text-6xl{font-size:3.75rem;line-height:1}}
+    
     body { font-family: 'Inter', system-ui, sans-serif; }
     body[data-lang="ja"] { font-family: 'Noto Sans JP', 'Inter', sans-serif; }
     body[data-lang="zh-TW"] { font-family: 'Noto Sans TC', 'Inter', sans-serif; }
@@ -900,7 +883,9 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .toast.show { opacity: 1; transform: translateY(0); }
+  
   </style>
+  <script src="config.js"></script>
 </head>
 <body class="bg-[#F8FAFC] min-h-screen" data-lang="en">
 
@@ -957,6 +942,7 @@
                 All Japan
               </span>
             </div>
+            <a href="#blog-section" class="text-sm font-medium text-gray-600 hover:text-navy-600 transition" data-i18n="nav_blog">Blog</a>
             <a href="#webmcp-section" class="text-sm font-medium text-gray-600 hover:text-navy-600 transition" data-i18n="nav_forai">For AI</a>
             <span class="text-xs bg-navy-50 text-navy-600 px-2 py-1 rounded-full font-medium">WebMCP</span>
           </div>
@@ -973,6 +959,7 @@
         <a href="#search-section" class="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg" data-i18n="nav_search">Search</a>
         <a href="#hotels-section" class="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg" data-i18n="nav_hotels">Hotels</a>
         <a href="#" onclick="event.preventDefault(); quickFilter('Mount Fuji')" class="block px-3 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50 rounded-lg">&#127956; Mt. Fuji / 富士山</a>
+        <a href="#blog-section" class="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg" data-i18n="nav_blog">Blog</a>
         <a href="#webmcp-section" class="block px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg" data-i18n="nav_forai">For AI</a>
       </div>
     </div>
@@ -992,7 +979,7 @@
         Japan's Finest Hotels,<br>Booked Instantly
       </h1>
       <p class="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-8 font-light" data-i18n="hero_desc">
-        300+ curated hotels loved by international travelers. AI agents can search directly.
+        320+ curated hotels loved by international travelers. AI agents can search directly.
       </p>
       <div class="flex flex-wrap justify-center gap-3">
         <a href="#search-section" class="btn-primary text-base">
@@ -1006,7 +993,7 @@
         </a>
       </div>
       <div class="mt-10 flex flex-wrap justify-center gap-4 text-xs text-white/60">
-        <span>Claude</span><span>Gemini</span><span>OpenAI</span><span>300+ Hotels</span><span>JPY & USD</span>
+        <span>Claude</span><span>Gemini</span><span>OpenAI</span><span>320+ Hotels</span><span>JPY & USD</span>
       </div>
     </div>
   </header>
@@ -1111,6 +1098,7 @@
     <!-- Results -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="hotels-section">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div class="text-xs text-gray-400 mb-2" data-i18n="affiliate_notice">Prices are estimates from affiliate partners. Booking links may earn commissions.</div>
         <h2 class="font-heading text-2xl font-bold" id="resultsTitle" data-i18n="results_title">Popular Hotels</h2>
         <div class="flex items-center gap-4">
           <p class="text-sm text-gray-500" id="resultsCount"></p>
@@ -1185,6 +1173,125 @@
       </div>
     </section>
 
+  <!-- Blog / Travel Guide Section -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12" id="blog-section">
+    <h2 class="font-heading text-2xl font-bold text-center mb-2" data-i18n="blog_title">Japan Travel Guide</h2>
+    <p class="text-center text-gray-500 text-sm mb-8" data-i18n="blog_subtitle">Expert tips and destination guides for your Japan trip</p>
+    <div class="space-y-4" id="blog-articles">
+
+      <!-- Article 1: Top 10 Tokyo Hotels -->
+      <article class="bg-white rounded-xl border border-gray-100 overflow-hidden">
+        <button onclick="toggleBlogArticle(this)" class="w-full text-left p-5 flex items-start justify-between gap-4 hover:bg-gray-50 transition" aria-expanded="false">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs bg-navy-50 text-navy-600 px-2 py-0.5 rounded-full font-medium">Tokyo</span>
+              <span class="text-xs text-gray-400" data-i18n="blog_read_time">5 min read</span>
+            </div>
+            <h3 class="font-semibold text-sm" data-i18n="blog_t1_title">Top 10 Hotels in Tokyo for Foreign Tourists 2026</h3>
+            <p class="text-gray-500 text-sm mt-1" data-i18n="blog_t1_excerpt">Discover the best-rated hotels across Shinjuku, Asakusa, Ginza and more popular Tokyo neighborhoods.</p>
+          </div>
+          <svg class="blog-chevron w-5 h-5 text-gray-400 mt-1 flex-shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="blog-content hidden px-5 pb-5">
+          <div class="text-gray-600 text-sm leading-relaxed space-y-3">
+            <p data-i18n="blog_t1_p1">Tokyo offers an incredible range of accommodation for international visitors, from ultra-modern high-rises to cozy business hotels. Here are our top picks for 2026, all bookable directly through our platform.</p>
+            <p data-i18n="blog_t1_p2"><strong>1. Shinjuku Hotel PARK INN</strong> - Located in the heart of Shinjuku, one of Tokyo's most vibrant districts. Perfect for nightlife, shopping, and transit access. Rating: 3.8/5. Around ¥8,500/night.</p>
+            <p data-i18n="blog_t1_p3"><strong>2. HOTEL MYSTAYS Asakusa</strong> - Steps from Senso-ji Temple and traditional atmosphere. Ideal for first-time visitors wanting to experience old Tokyo. Rating: 3.5/5. Around ¥12,600/night.</p>
+            <p data-i18n="blog_t1_p4"><strong>3. ELE hotel Ginza East</strong> - Situated near Tokyo's upscale Ginza district. Great for luxury shopping and fine dining. Rating: 3.6/5. Around ¥9,800/night.</p>
+            <p data-i18n="blog_t1_p5"><strong>4. Olympic Inn Azabu</strong> - In the sophisticated Azabu area, close to Roppongi. Excellent for business travelers and expats. Rating: 3.9/5. Around ¥10,200/night.</p>
+            <p data-i18n="blog_t1_p6"><strong>5. OLYMPIC INN Kanda</strong> - Budget-friendly option near Akihabara and Tokyo Station. Compact but well-equipped rooms. Rating: 3.5/5. Around ¥7,500/night.</p>
+            <p data-i18n="blog_t1_p7">Other notable mentions include Kiba no Tsuru Crane Hotel for its unique riverside location, FLEXSTAY INN Shirogane for extended stays, and Smile Hotel Tokyo Ayase Ekimae for value-conscious travelers. Most Tokyo hotels accept international credit cards and offer free Wi-Fi. Book early during cherry blossom season (March-April) as availability fills up fast.</p>
+            <div class="mt-3 pt-3 border-t border-gray-100">
+              <a href="#" onclick="event.preventDefault(); quickFilter('Tokyo')" class="text-navy-600 text-sm font-medium hover:underline" data-i18n="blog_search_tokyo">Search all Tokyo hotels →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article 2: Kyoto Travel Guide -->
+      <article class="bg-white rounded-xl border border-gray-100 overflow-hidden">
+        <button onclick="toggleBlogArticle(this)" class="w-full text-left p-5 flex items-start justify-between gap-4 hover:bg-gray-50 transition" aria-expanded="false">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs bg-navy-50 text-navy-600 px-2 py-0.5 rounded-full font-medium">Kyoto</span>
+              <span class="text-xs text-gray-400" data-i18n="blog_read_time">4 min read</span>
+            </div>
+            <h3 class="font-semibold text-sm" data-i18n="blog_t2_title">Kyoto Travel Guide: Best Areas to Stay</h3>
+            <p class="text-gray-500 text-sm mt-1" data-i18n="blog_t2_excerpt">From Gion's geisha district to downtown Karasuma, find the perfect base for exploring Kyoto's temples.</p>
+          </div>
+          <svg class="blog-chevron w-5 h-5 text-gray-400 mt-1 flex-shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="blog-content hidden px-5 pb-5">
+          <div class="text-gray-600 text-sm leading-relaxed space-y-3">
+            <p data-i18n="blog_t2_p1">Kyoto, Japan's cultural capital, offers distinct neighborhoods each with their own character. Choosing the right area to stay can make or break your trip. Here's our comprehensive neighborhood guide.</p>
+            <p data-i18n="blog_t2_p2"><strong>Gion & Higashiyama</strong> - The most atmospheric area, home to geisha houses, Kiyomizu-dera Temple, and traditional wooden machiya streets. Stay at Hotel Kuretakeso Kyoto Kiyomizu Gojo for easy access to eastern Kyoto's top sights. Walkable to Kodai-ji and Yasaka Shrine.</p>
+            <p data-i18n="blog_t2_p3"><strong>Karasuma & Shijo (Downtown)</strong> - The commercial heart of Kyoto with excellent bus and subway connections. HOTEL CUORE Kyoto Shijo Omiya and Smile Hotel Kyoto Karasumagojo offer convenient access to Nishiki Market and the shopping district. Best for food lovers and public transport users.</p>
+            <p data-i18n="blog_t2_p4"><strong>Kyoto Station Area</strong> - Ideal for day-trippers using the Shinkansen. KYOTO PLAZA HOTEL KYOTO STATION SOUTH provides easy access to bullet trains, while the station itself is an architectural landmark with dining and shopping. Perfect for first-time visitors.</p>
+            <p data-i18n="blog_t2_p5"><strong>Nijo Castle Area</strong> - Stay near Kyoto's most famous castle. Hotels like HOTEL LiVEMAX KYOTO NIJO-JO-KITA put you within walking distance of the castle gardens. Quieter than downtown but well-connected by bus.</p>
+            <p data-i18n="blog_t2_p6">For a design-focused stay, consider HOTEL ANTEROOM KYOTO or The Celecton Kyoto Horikawa Sanjo. Budget travelers can find clean business hotels like EN HOTEL Kyoto from around ¥7,000/night. Kyoto hotels tend to book out months in advance during autumn foliage season (November) and cherry blossom season, so plan ahead.</p>
+            <div class="mt-3 pt-3 border-t border-gray-100">
+              <a href="#" onclick="event.preventDefault(); quickFilter('Kyoto')" class="text-navy-600 text-sm font-medium hover:underline" data-i18n="blog_search_kyoto">Search all Kyoto hotels →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article 3: Mt. Fuji Onsen Guide -->
+      <article class="bg-white rounded-xl border border-gray-100 overflow-hidden">
+        <button onclick="toggleBlogArticle(this)" class="w-full text-left p-5 flex items-start justify-between gap-4 hover:bg-gray-50 transition" aria-expanded="false">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs bg-navy-50 text-navy-600 px-2 py-0.5 rounded-full font-medium">Mt. Fuji</span>
+              <span class="text-xs text-gray-400" data-i18n="blog_read_time">4 min read</span>
+            </div>
+            <h3 class="font-semibold text-sm" data-i18n="blog_t3_title">Mt. Fuji Hotels: Onsen & Lake Kawaguchi Guide</h3>
+            <p class="text-gray-500 text-sm mt-1" data-i18n="blog_t3_excerpt">Experience Fuji views from natural hot springs. Your guide to ryokan, onsen hotels, and lakeside stays near Mt. Fuji.</p>
+          </div>
+          <svg class="blog-chevron w-5 h-5 text-gray-400 mt-1 flex-shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="blog-content hidden px-5 pb-5">
+          <div class="text-gray-600 text-sm leading-relaxed space-y-3">
+            <p data-i18n="blog_t3_p1">A trip to see Mt. Fuji is a bucket-list experience for many travelers. The surrounding Yamanashi and Shizuoka prefectures offer everything from luxury ryokan with private onsen to budget-friendly hotels with stunning mountain views.</p>
+            <p data-i18n="blog_t3_p2"><strong>Lake Kawaguchi Area</strong> - The most popular base for Mt. Fuji viewing. Hotels in the Kawaguchiko-Saiko-Fujiyoshida area offer lakefront rooms with postcard-perfect Fuji reflections. From here you can access the Kawaguchiko Ropeway, Oishi Park, and the Chureito Pagoda. Prices range from ¥8,000 for business hotels to ¥30,000+ for onsen ryokan.</p>
+            <p data-i18n="blog_t3_p3"><strong>Kofu Area</strong> - The capital of Yamanashi prefecture offers more affordable accommodation with easy access to Shosenkyo Gorge and Yamanashi wineries. Notable options include Hotel Mifuji, Hotel Crown Hills Kofu, and the stylish HOTEL R9 The Yard Kofu. Great for wine lovers, with several local wineries offering tastings.</p>
+            <p data-i18n="blog_t3_p4"><strong>Onsen & Ryokan Experience</strong> - For a traditional Japanese inn experience, look for properties with natural hot spring baths (onsen). Many ryokan in the Fuji Five Lakes area offer kaiseki dinner and tatami rooms. Booking a room with an onsen bath (kashikiri-buro) gives you a private soaking experience with mountain views.</p>
+            <p data-i18n="blog_t3_p5"><strong>Practical Tips</strong> - The best time to see Mt. Fuji clearly is early morning from October to February. Summer brings higher cloud coverage. The Fuji Subaru Line 5th Station (accessible June-September) is the starting point for climbing. Even if you don't climb, the drive up offers breathtaking alpine scenery. From Tokyo, take the Limited Express Azusa or Kaiji to Otsuki, then transfer to the Fujikyuko Line for Lake Kawaguchi (about 2 hours total).</p>
+            <div class="mt-3 pt-3 border-t border-gray-100">
+              <a href="#" onclick="event.preventDefault(); quickFilter('Mount Fuji')" class="text-navy-600 text-sm font-medium hover:underline" data-i18n="blog_search_fuji">Search all Mt. Fuji hotels →</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article 4: Japan Hotel Booking Tips -->
+      <article class="bg-white rounded-xl border border-gray-100 overflow-hidden">
+        <button onclick="toggleBlogArticle(this)" class="w-full text-left p-5 flex items-start justify-between gap-4 hover:bg-gray-50 transition" aria-expanded="false">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs bg-navy-50 text-navy-600 px-2 py-0.5 rounded-full font-medium">Tips</span>
+              <span class="text-xs text-gray-400" data-i18n="blog_read_time">5 min read</span>
+            </div>
+            <h3 class="font-semibold text-sm" data-i18n="blog_t4_title">Japan Hotel Booking Tips for International Travelers</h3>
+            <p class="text-gray-500 text-sm mt-1" data-i18n="blog_t4_excerpt">Everything you need to know about payment methods, language barriers, cancellation policies, and booking ahead.</p>
+          </div>
+          <svg class="blog-chevron w-5 h-5 text-gray-400 mt-1 flex-shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div class="blog-content hidden px-5 pb-5">
+          <div class="text-gray-600 text-sm leading-relaxed space-y-3">
+            <p data-i18n="blog_t4_p1">Booking a hotel in Japan as a foreign tourist is easier than ever, but there are some important differences to be aware of. This guide covers everything from payment methods to check-in customs.</p>
+            <p data-i18n="blog_t4_p2"><strong>Payment Methods</strong> - Most hotels accept Visa and Mastercard. American Express and JCB are also widely accepted at mid-range and upscale properties. Budget business hotels and rural ryokan may be cash-only, so always carry yen. Booking online in advance lets you pay by card and confirm your room before arriving. Exchange rates shown on booking platforms are typically competitive.</p>
+            <p data-i18n="blog_t4_p3"><strong>Language Considerations</strong> - Don't worry if you don't speak Japanese. Major hotel chains (APA Hotel, Smile Hotel, Route Inn) have English booking sites and English-speaking staff. Our platform provides hotel descriptions in English, Japanese, Chinese, and Korean. When checking in, having your booking confirmation on your phone is helpful. Many hotels now use self check-in kiosks with multilingual support.</p>
+            <p data-i18n="blog_t4_p4"><strong>Cancellation Policies</strong> - Japanese hotels typically have stricter cancellation policies than Western ones. Many require cancellation 3-7 days before check-in for a full refund. "Non-refundable" plans (often labeled as "Early Bird" or "Special Rate") offer 10-30% savings but cannot be changed. Always read the cancellation terms before booking. Our platform shows cancellation policies clearly for each hotel.</p>
+            <p data-i18n="blog_t4_p5"><strong>Check-in & Check-out Times</strong> - Standard check-in is 3:00 PM and check-out is 10:00 AM in Japan, which is earlier than many countries. Some hotels offer luggage storage if you arrive early. Business hotels often have check-in from 2:00 PM. If you need late check-out, request it at check-in (many will extend to 11:00 AM free of charge).</p>
+            <p data-i18n="blog_t4_p6"><strong>Room Sizes</strong> - Japanese hotel rooms are typically smaller than Western standards. A "single" room usually has a semi-double bed (120-130cm wide). For two people, book a "double" or "twin" room. Family travelers should look specifically for family rooms or connectable rooms. Capsule hotels offer a uniquely Japanese experience for solo travelers on a budget.</p>
+            <p data-i18n="blog_t4_p7"><strong>Peak Seasons</strong> - Book at least 2-3 months ahead for cherry blossom season (late March to mid-April), autumn foliage (November), Golden Week (late April to early May), and New Year. Summer fireworks festivals and Obon (mid-August) are also busy periods. Off-peak travel (January-February, June) offers the best rates.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
   <!-- FAQ Section -->
   <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12" id="faq-section">
     <h2 class="font-heading text-2xl font-bold text-center mb-8" data-i18n="faq_title">Frequently Asked Questions</h2>
@@ -1239,7 +1346,9 @@
         <div>
           <h4 class="font-semibold text-sm uppercase tracking-wide mb-3">Info</h4>
           <div class="text-sm text-gray-400 space-y-1">
-            <p data-i18n="footer_hotels">300+ curated hotels</p>
+            <a href="#blog-section" class="block hover:text-white transition" data-i18n="nav_blog">Blog</a>
+            <a href="#faq-section" class="block hover:text-white transition" data-i18n="nav_faq">FAQ</a>
+            <p data-i18n="footer_hotels">320+ curated hotels</p>
             <p data-i18n="footer_pricing">JPY & USD pricing</p>
             <p data-i18n="footer_affiliate">Affiliate links used</p>
             <p data-i18n="footer_launched">Launched March 2026</p>
@@ -1266,7 +1375,7 @@
         nav_hotels: "Hotels",
         nav_forai: "For AI",
         hero_title: 'Japan\'s Finest Hotels,<br>Booked Instantly',
-        hero_desc: "300+ curated hotels loved by international travelers. AI agents can search directly.",
+        hero_desc: "320+ curated hotels loved by international travelers. AI agents can search directly.",
         hero_search_btn: "Search Hotels",
         hero_learn_btn: "Learn about WebMCP",
         explore_title: "Explore by Region",
@@ -1291,6 +1400,7 @@
         guest_3: "3 Guests",
         guest_4: "4 Guests",
         guest_5: "5+ Guests",
+        affiliate_notice: "Prices are estimates from affiliate partners. Booking links may earn commissions.",
         results_title: "Popular Hotels",
         results_hotels_in: "Hotels",
         results_showing: "Showing {0} of {1} hotels",
@@ -1309,6 +1419,7 @@
         found_hotels_all: "Found {0} hotels",
         per_night: "/night",
         btn_book: "Book Now",
+        ad_label: "Sponsored",
         webmcp_title: "Built for AI Agents",
         webmcp_desc: "WebMCP enabled. Claude, Gemini, and OpenAI-compatible agents can search hotels directly via structured tool calls.",
         webmcp_nl_title: "Natural Language",
@@ -1319,7 +1430,7 @@
         footer_desc: "The first AI-compatible Japan hotel search tool for foreign tourists.",
         footer_regions: "Regions",
         footer_all: "All Hotels",
-        footer_hotels: "300+ curated hotels",
+        footer_hotels: "320+ curated hotels",
         footer_pricing: "JPY & USD pricing",
         footer_affiliate: "Affiliate links used",
         footer_launched: "Launched March 2026",
@@ -1327,13 +1438,54 @@
         click_to_search: "Click to search hotels",
         faq_title: "Frequently Asked Questions",
         faq_q1: "Can foreigners book hotels in Japan easily?",
-        faq_a1: "Yes! Our platform aggregates 300+ hotels across Japan with booking links through trusted platforms like Jalan.net.",
+        faq_a1: "Yes! Our platform aggregates 320+ hotels across Japan with booking links through trusted platforms like Jalan.net.",
         faq_q2: "What is the best area to stay in Japan?",
         faq_a2: "Tokyo for first-timers, Kyoto for culture, Osaka for food, Hokkaido for nature, and Okinawa for beaches.",
         faq_q3: "Do Japanese hotels accept credit cards?",
         faq_a3: "Most hotels accept Visa, Mastercard, AMEX, JCB. Book online for the best rates.",
         faq_q4: "What is WebMCP AI booking?",
-        faq_a4: "AI agents like Claude and ChatGPT search hotels via structured tool calls and direct you to secure booking pages." ,
+        faq_a4: "AI agents like Claude and ChatGPT search hotels via structured tool calls and direct you to secure booking pages.",
+        nav_blog: "Blog",
+        nav_faq: "FAQ",
+        blog_title: "Japan Travel Guide",
+        blog_subtitle: "Expert tips and destination guides for your Japan trip",
+        blog_read_time: "{0} min read",
+        blog_t1_title: "Top 10 Hotels in Tokyo for Foreign Tourists 2026",
+        blog_t1_excerpt: "Discover the best-rated hotels across Shinjuku, Asakusa, Ginza and more popular Tokyo neighborhoods.",
+        blog_t1_p1: "Tokyo offers an incredible range of accommodation for international visitors, from ultra-modern high-rises to cozy business hotels. Here are our top picks for 2026, all bookable directly through our platform.",
+        blog_t1_p2: "<strong>1. Shinjuku Hotel PARK INN</strong> - Located in the heart of Shinjuku, one of Tokyo's most vibrant districts. Perfect for nightlife, shopping, and transit access. Rating: 3.8/5. Around ¥8,500/night.",
+        blog_t1_p3: "<strong>2. HOTEL MYSTAYS Asakusa</strong> - Steps from Senso-ji Temple and traditional atmosphere. Ideal for first-time visitors wanting to experience old Tokyo. Rating: 3.5/5. Around ¥12,600/night.",
+        blog_t1_p4: "<strong>3. ELE hotel Ginza East</strong> - Situated near Tokyo's upscale Ginza district. Great for luxury shopping and fine dining. Rating: 3.6/5. Around ¥9,800/night.",
+        blog_t1_p5: "<strong>4. Olympic Inn Azabu</strong> - In the sophisticated Azabu area, close to Roppongi. Excellent for business travelers and expats. Rating: 3.9/5. Around ¥10,200/night.",
+        blog_t1_p6: "<strong>5. OLYMPIC INN Kanda</strong> - Budget-friendly option near Akihabara and Tokyo Station. Compact but well-equipped rooms. Rating: 3.5/5. Around ¥7,500/night.",
+        blog_t1_p7: "Other notable mentions include Kiba no Tsuru Crane Hotel for its unique riverside location, FLEXSTAY INN Shirogane for extended stays, and Smile Hotel Tokyo Ayase Ekimae for value-conscious travelers. Most Tokyo hotels accept international credit cards and offer free Wi-Fi. Book early during cherry blossom season (March-April) as availability fills up fast.",
+        blog_search_tokyo: "Search all Tokyo hotels →",
+        blog_t2_title: "Kyoto Travel Guide: Best Areas to Stay",
+        blog_t2_excerpt: "From Gion's geisha district to downtown Karasuma, find the perfect base for exploring Kyoto's temples.",
+        blog_t2_p1: "Kyoto, Japan's cultural capital, offers distinct neighborhoods each with their own character. Choosing the right area to stay can make or break your trip. Here's our comprehensive neighborhood guide.",
+        blog_t2_p2: "<strong>Gion & Higashiyama</strong> - The most atmospheric area, home to geisha houses, Kiyomizu-dera Temple, and traditional wooden machiya streets. Stay at Hotel Kuretakeso Kyoto Kiyomizu Gojo for easy access to eastern Kyoto's top sights. Walkable to Kodai-ji and Yasaka Shrine.",
+        blog_t2_p3: "<strong>Karasuma & Shijo (Downtown)</strong> - The commercial heart of Kyoto with excellent bus and subway connections. HOTEL CUORE Kyoto Shijo Omiya and Smile Hotel Kyoto Karasumagojo offer convenient access to Nishiki Market and the shopping district. Best for food lovers and public transport users.",
+        blog_t2_p4: "<strong>Kyoto Station Area</strong> - Ideal for day-trippers using the Shinkansen. KYOTO PLAZA HOTEL KYOTO STATION SOUTH provides easy access to bullet trains, while the station itself is an architectural landmark with dining and shopping. Perfect for first-time visitors.",
+        blog_t2_p5: "<strong>Nijo Castle Area</strong> - Stay near Kyoto's most famous castle. Hotels like HOTEL LiVEMAX KYOTO NIJO-JO-KITA put you within walking distance of the castle gardens. Quieter than downtown but well-connected by bus.",
+        blog_t2_p6: "For a design-focused stay, consider HOTEL ANTEROOM KYOTO or The Celecton Kyoto Horikawa Sanjo. Budget travelers can find clean business hotels like EN HOTEL Kyoto from around ¥7,000/night. Kyoto hotels tend to book out months in advance during autumn foliage season (November) and cherry blossom season, so plan ahead.",
+        blog_search_kyoto: "Search all Kyoto hotels →",
+        blog_t3_title: "Mt. Fuji Hotels: Onsen & Lake Kawaguchi Guide",
+        blog_t3_excerpt: "Experience Fuji views from natural hot springs. Your guide to ryokan, onsen hotels, and lakeside stays near Mt. Fuji.",
+        blog_t3_p1: "A trip to see Mt. Fuji is a bucket-list experience for many travelers. The surrounding Yamanashi and Shizuoka prefectures offer everything from luxury ryokan with private onsen to budget-friendly hotels with stunning mountain views.",
+        blog_t3_p2: "<strong>Lake Kawaguchi Area</strong> - The most popular base for Mt. Fuji viewing. Hotels in the Kawaguchiko-Saiko-Fujiyoshida area offer lakefront rooms with postcard-perfect Fuji reflections. From here you can access the Kawaguchiko Ropeway, Oishi Park, and the Chureito Pagoda. Prices range from ¥8,000 for business hotels to ¥30,000+ for onsen ryokan.",
+        blog_t3_p3: "<strong>Kofu Area</strong> - The capital of Yamanashi prefecture offers more affordable accommodation with easy access to Shosenkyo Gorge and Yamanashi wineries. Notable options include Hotel Mifuji, Hotel Crown Hills Kofu, and the stylish HOTEL R9 The Yard Kofu. Great for wine lovers, with several local wineries offering tastings.",
+        blog_t3_p4: "<strong>Onsen & Ryokan Experience</strong> - For a traditional Japanese inn experience, look for properties with natural hot spring baths (onsen). Many ryokan in the Fuji Five Lakes area offer kaiseki dinner and tatami rooms. Booking a room with an onsen bath (kashikiri-buro) gives you a private soaking experience with mountain views.",
+        blog_t3_p5: "<strong>Practical Tips</strong> - The best time to see Mt. Fuji clearly is early morning from October to February. Summer brings higher cloud coverage. The Fuji Subaru Line 5th Station (accessible June-September) is the starting point for climbing. Even if you don't climb, the drive up offers breathtaking alpine scenery. From Tokyo, take the Limited Express Azusa or Kaiji to Otsuki, then transfer to the Fujikyuko Line for Lake Kawaguchi (about 2 hours total).",
+        blog_search_fuji: "Search all Mt. Fuji hotels →",
+        blog_t4_title: "Japan Hotel Booking Tips for International Travelers",
+        blog_t4_excerpt: "Everything you need to know about payment methods, language barriers, cancellation policies, and booking ahead.",
+        blog_t4_p1: "Booking a hotel in Japan as a foreign tourist is easier than ever, but there are some important differences to be aware of. This guide covers everything from payment methods to check-in customs.",
+        blog_t4_p2: "<strong>Payment Methods</strong> - Most hotels accept Visa and Mastercard. American Express and JCB are also widely accepted at mid-range and upscale properties. Budget business hotels and rural ryokan may be cash-only, so always carry yen. Booking online in advance lets you pay by card and confirm your room before arriving.",
+        blog_t4_p3: "<strong>Language Considerations</strong> - Don't worry if you don't speak Japanese. Major hotel chains (APA Hotel, Smile Hotel, Route Inn) have English booking sites and English-speaking staff. Our platform provides hotel descriptions in English, Japanese, Chinese, and Korean.",
+        blog_t4_p4: "<strong>Cancellation Policies</strong> - Japanese hotels typically have stricter cancellation policies than Western ones. Many require cancellation 3-7 days before check-in for a full refund. Always read the cancellation terms before booking.",
+        blog_t4_p5: "<strong>Check-in & Check-out Times</strong> - Standard check-in is 3:00 PM and check-out is 10:00 AM in Japan, which is earlier than many countries. Some hotels offer luggage storage if you arrive early.",
+        blog_t4_p6: "<strong>Room Sizes</strong> - Japanese hotel rooms are typically smaller than Western standards. A single room usually has a semi-double bed (120-130cm wide). For two people, book a double or twin room.",
+        blog_t4_p7: "<strong>Peak Seasons</strong> - Book at least 2-3 months ahead for cherry blossom season (late March to mid-April), autumn foliage (November), Golden Week (late April to early May), and New Year. Off-peak travel (January-February, June) offers the best rates.",
       },
       ja: {
         nav_map: "地図",
@@ -1341,7 +1493,7 @@
         nav_hotels: "ホテル一覧",
         nav_forai: "AI向け",
         hero_title: '日本の最高級ホテルを<br>AIですぐに予約',
-        hero_desc: "海外観光客に人気の厳選ホテル300件以上。AIエージェントが直接検索可能。",
+        hero_desc: "海外観光客に人気の厳選ホテル320件以上。AIエージェントが直接検索可能。",
         hero_search_btn: "ホテルを検索",
         hero_learn_btn: "WebMCPについて",
         explore_title: "エリアで探す",
@@ -1366,6 +1518,7 @@
         guest_3: "3名",
         guest_4: "4名",
         guest_5: "5名以上",
+        affiliate_notice: "価格はアフィリエイト提携先の参考価格です。予約リンクは報酬を得る場合があります。",
         results_title: "人気ホテル",
         results_hotels_in: "のホテル",
         results_showing: "{1}件中{0}件を表示中",
@@ -1378,6 +1531,7 @@
         found_hotels_all: "{0}件のホテルが見つかりました",
         per_night: "/泊",
         btn_book: "今すぐ予約",
+        ad_label: "広告",
         webmcp_title: "AIエージェント対応",
         webmcp_desc: "WebMCP対応。Claude、Gemini、OpenAI互換のAIエージェントが直接ホテル検索ツールを呼び出せます。",
         webmcp_nl_title: "自然言語",
@@ -1388,7 +1542,7 @@
         footer_desc: "海外観光客向け・日本初のAI対応ホテル検索ツール。",
         footer_regions: "エリア",
         footer_all: "すべてのホテル",
-        footer_hotels: "厳選ホテル300件以上",
+        footer_hotels: "厳選ホテル320件以上",
         footer_pricing: "JPY & USD対応",
         footer_affiliate: "アフィリエイトリンク使用",
         footer_launched: "2026年3月ローンチ",
@@ -1396,13 +1550,54 @@
         click_to_search: "クリックしてホテルを検索",
         faq_title: "よくあるご質問",
         faq_q1: "外国人でも日本のホテルを簡単に予約できますか？",
-        faq_a1: "はい！当サイトではJalan.net等の信頼できるプラットフォームを通じて、日本全国300件以上のホテルを予約できます。",
+        faq_a1: "はい！当サイトではJalan.net等の信頼できるプラットフォームを通じて、日本全国320件以上のホテルを予約できます。",
         faq_q2: "日本で宿泊するならどのエリアがおすすめ？",
         faq_a2: "初めてなら東京、伝統文化なら京都、グルメなら大阪、大自然なら北海道、ビーチなら沖縄がおすすめです。",
         faq_q3: "クレジットカードは使えますか？",
         faq_a3: "ほとんどのホテルでVisa、Mastercard、AMEX、JCBが利用可能です。オンライン予約が最安です。",
         faq_q4: "WebMCP AI予約とは？",
-        faq_a4: "ClaudeやChatGPT等のAIがホテルを検索し、安全な予約ページに誘導する仕組みです。" ,
+        faq_a4: "ClaudeやChatGPT等のAIがホテルを検索し、安全な予約ページに誘導する仕組みです。",
+        nav_blog: "旅行ガイド",
+        nav_faq: "よくある質問",
+        blog_title: "日本旅行ガイド",
+        blog_subtitle: "日本旅行に役立つ専門家のヒントと目的地ガイド",
+        blog_read_time: "{0}分で読める",
+        blog_t1_title: "外国人におすすめの東京ホテルトップ10 2026",
+        blog_t1_excerpt: "新宿、浅草、銀座など人気エリアの高評価ホテルをご紹介します。",
+        blog_t1_p1: "東京には、超モダンな高層ビルから居心地の良いビジネスホテルまで、外国人観光客に適した幅広い宿泊施設があります。2026年のおすすめを厳選しました。",
+        blog_t1_p2: "<strong>1. Shinjuku Hotel PARK INN</strong> - 東京で最も活気ある新宿の中心部に位置。ナイトライフ、ショッピング、交通アクセスに最適。評価3.8/5。約8,500円/泊。",
+        blog_t1_p3: "<strong>2. HOTEL MYSTAYS Asakusa</strong> - 浅草寺からすぐ。昔ながらの東京の雰囲気を体験したい初訪問者に最適。評価3.5/5。約12,600円/泊。",
+        blog_t1_p4: "<strong>3. ELE hotel Ginza East</strong> - 東京の高級エリア・銀座の近く。高級ショッピングと美食に最適。評価3.6/5。約9,800円/泊。",
+        blog_t1_p5: "<strong>4. Olympic Inn Azabu</strong> - 洗練された麻布エリア、六本木に近い。ビジネス旅行者に最適。評価3.9/5。約10,200円/泊。",
+        blog_t1_p6: "<strong>5. OLYMPIC INN Kanda</strong> - 秋葉原と東京駅に近いお手頃価格の選択肢。コンパクトだが設備充実。評価3.5/5。約7,500円/泊。",
+        blog_t1_p7: "その他のおすすめは、川沿いのロケーションが魅力のKiba no Tsuru Crane Hotel、長期滞在向けのFLEXSTAY INN Shirogane、コストパフォーマンス重視のSmile Hotel Tokyo Ayase Ekimaeです。桜の季節は早めの予約を。",
+        blog_search_tokyo: "東京の全ホテルを検索 →",
+        blog_t2_title: "京都旅行ガイド：おすすめ滞在エリア",
+        blog_t2_excerpt: "祇園の花街から繁華街の烏丸まで、京都の寺院巡りに最適な拠点を見つけよう。",
+        blog_t2_p1: "日本の文化の首都である京都には、それぞれ独自の特色を持つエリアがあります。滞在場所の選択が旅行の成功を左右します。包括的なエリアガイドをご紹介します。",
+        blog_t2_p2: "<strong>祇園・東山エリア</strong> - 最も雰囲気のあるエリア。芸者置屋、清水寺、伝統的な町家通りがあります。Hotel Kuretakeso Kyoto Kiyomizu Gojoから東部の名所に簡単アクセス。",
+        blog_t2_p3: "<strong>烏丸・四条（繁華街）</strong> - バス・地下鉄アクセス抜群の商業エリア。HOTEL CUORE Kyoto Shijo OmiyaやSmile Hotel Kyoto Karasumagojoが錦市場やショッピングエリアに便利。",
+        blog_t2_p4: "<strong>京都駅周辺</strong> - 新幹線利用の日にち帰りに最適。KYOTO PLAZA HOTEL KYOTO STATION SOUTHは駅直結。初めての京都に最適。",
+        blog_t2_p5: "<strong>二条城エリア</strong> - 京都で最も有名な城の近くに滞在。HOTEL LiVEMAX KYOTO NIJO-JO-KITAなら城の庭園まで徒歩圏内。静かでバス接続も良好。",
+        blog_t2_p6: "デザイン重視ならHOTEL ANTEROOM KYOTOやThe Celecton Kyoto Horikawa Sanjoがおすすめ。予算重視ならEN HOTEL Kyotoが約7,000円/泊から。紅葉シーズンや桜シーズンは数ヶ月前からの予約が必須です。",
+        blog_search_kyoto: "京都の全ホテルを検索 →",
+        blog_t3_title: "富士山ホテル：温泉＆河口湖ガイド",
+        blog_t3_excerpt: "天然温泉から富士山を望む。富士山周辺の旅館、温泉ホテル、湖畔の宿泊施設ガイド。",
+        blog_t3_p1: "富士山を訪れる旅行は多くの人のバケットリストです。山梨県と静岡県には、プライベート温泉付きの豪華旅館から、絶景を望む手頃なホテルまで揃っています。",
+        blog_t3_p2: "<strong>河口湖エリア</strong> - 富士山観光の最も人気の拠点。河口湖・西湖・富士吉田エリアのホテルは湖畔に富士の反射を望む部屋を提供。河口湖ロープウェイ、大石公園、忠霊塔にアクセス可能。ビジネスホテル8,000円〜温泉旅館30,000円以上。",
+        blog_t3_p3: "<strong>甲府エリア</strong> - 山梨県の県庁所在地で、昇仙峡や山梨ワイナリーにアクセスしやすい。Hotel Mifuji、Hotel Crown Hills Kofu、デザインの良いHOTEL R9 The Yard Kofuがおすすめ。ワイン愛好家に最適。",
+        blog_t3_p4: "<strong>温泉・旅館体験</strong> - 伝統的な日本旅館を体験するなら、天然温泉（onsen）のある宿を。富士五湖エリアの多くの旅館は懐石料理と畳の部屋を提供。貸切風呂（かしきりぶろ）付き部屋なら、山を望みながらプライベートに入浴できます。",
+        blog_t3_p5: "<strong>実用情報</strong> - 富士山がはっきり見えるのは10〜2月の早朝。夏は雲が多くなります。登山は6〜9月の富士スバルライン5合目から。東京からは特急あずさ・かいじで大月まで、富士急行線に乗り換えて河口湖へ（約2時間）。",
+        blog_search_fuji: "富士山エリアの全ホテルを検索 →",
+        blog_t4_title: "外国人のための日本ホテル予約のコツ",
+        blog_t4_excerpt: "お支払い方法、言葉の壁、キャンセルポリシー、事前予約について知っておくべきこと。",
+        blog_t4_p1: "外国人観光客としての日本でのホテル予約はこれまで以上に簡単になりましたが、いくつか重要な違いがあります。",
+        blog_t4_p2: "<strong>お支払い方法</strong> - ほとんどのホテルでVisa、Mastercardが使えます。AMEXやJCBも中級以上で広く対応。田舎の旅館は現金のみの場合も。事前オンライン予約でカード決済可能。",
+        blog_t4_p3: "<strong>言語について</strong> - 日本語が分からなくても心配無用。APAホテル、スマイルホテル、ルートインなどの大手チェーンは英語サイトと英語対応スタッフがいます。当サイトは英語、日本語、中国語、韓国語でホテル情報を提供。",
+        blog_t4_p4: "<strong>キャンセルポリシー</strong> - 日本のホテルは欧米より厳しい傾向があります。多くは3〜7日前までのキャンセルが必要。「早期予約割引」は10〜30%お得ですが変更不可。予約前に必ず確認を。",
+        blog_t4_p5: "<strong>チェックイン・チェックアウト</strong> - チェックイン15:00、チェックアウト10:00が標準。早めに到着する場合は荷物預かりが可能。レイトチェックアウトはチェックイン時にお願いすれば11:00まで無料対応のホテルも。",
+        blog_t4_p6: "<strong>部屋の広さ</strong> - 日本のホテルは欧米より狭め。シングルはセミダブル（120〜130cm幅）が一般的。2名の場合はダブルまたはツインを予約。カプセルホテルはソロ旅行者におすすめ。",
+        blog_t4_p7: "<strong>繁忙期</strong> - 桜シーズン（3月下旬〜4月中旬）、紅葉（11月）、ゴールデンウィーク（4月下旬〜5月上旬）、年末年始は2〜3ヶ月前からの予約を。閑散期（1〜2月、6月）は最安値。",
       },
       "zh-TW": {
         nav_map: "地圖",
@@ -1410,7 +1605,7 @@
         nav_hotels: "飯店列表",
         nav_forai: "AI 專用",
         hero_title: "日本精選飯店<br>AI 即時預約",
-        hero_desc: "300+ 間國際旅客愛用的嚴選飯店。AI 智慧助理可直接搜尋。",
+        hero_desc: "320+ 間國際旅客愛用的嚴選飯店。AI 智慧助理可直接搜尋。",
         hero_search_btn: "搜尋飯店",
         hero_learn_btn: "了解 WebMCP",
         explore_title: "依區域探索",
@@ -1435,6 +1630,7 @@
         guest_3: "3位旅客",
         guest_4: "4位旅客",
         guest_5: "5位以上",
+        affiliate_notice: "價格為聯盟合作夥伴之參考價格。預託連結可能產生佣金。",
         results_title: "人氣飯店",
         results_hotels_in: "的飯店",
         results_showing: "顯示 {0} / {1} 間飯店",
@@ -1447,6 +1643,7 @@
         found_hotels_all: "找到{0}間飯店",
         per_night: "/晚",
         btn_book: "立即預約",
+        ad_label: "廣告",
         webmcp_title: "為 AI 智慧助理打造",
         webmcp_desc: "WebMCP 啟用。Claude、Gemini 及 OpenAI 相容的 AI 可透過結構化工具呼叫直接搜尋飯店。",
         webmcp_nl_title: "自然語言",
@@ -1457,7 +1654,7 @@
         footer_desc: "台灣旅客首選的日本 AI 飯店搜尋工具。",
         footer_regions: "區域",
         footer_all: "所有飯店",
-        footer_hotels: "300+ 間嚴選飯店",
+        footer_hotels: "320+ 間嚴選飯店",
         footer_pricing: "日圓 & 美元計價",
         footer_affiliate: "使用聯盟連結",
         footer_launched: "2026年3月上線",
@@ -1465,13 +1662,54 @@
         click_to_search: "點擊搜尋飯店",
         faq_title: "常見問題",
         faq_q1: "外國人可以輕鬆預訂日本飯店嗎？",
-        faq_a1: "可以的！我們的平台透過Jalan.net等可信平台，提供日本各地300多家飯店的預訂連結。",
+        faq_a1: "可以的！我們的平台透過Jalan.net等可信平台，提供日本各地320多家飯店的預訂連結。",
         faq_q2: "在日本住宿推薦哪個區域？",
         faq_a2: "初次來推薦東京、文化體驗推薦京都、美食推薦大阪、自然景觀推薦北海道、海灘推薦沖繩。",
         faq_q3: "可以使用信用卡嗎？",
         faq_a3: "大多數飯店接受Visa、Mastercard、AMEX、JCB。建議提前線上預訂。",
-        faq_q4: "什麼是WebMCP AI預訂？",
-        faq_a4: "Claude和ChatGPT等AI代理透過結構化工具呼叫搜尋飯店，並將您導向安全的預訂頁面。" ,
+        faq_q4: "什么 是WebMCP AI預訂？",
+        faq_a4: "Claude和ChatGPT等AI代理透過結構化工具呼叫搜尋飯店，並將您導向安全的預訂頁面。",
+        nav_blog: "旅行攻略",
+        nav_faq: "常見問題",
+        blog_title: "日本旅行攻略",
+        blog_subtitle: "專家建議與目的地指南，為您的日本之旅加分",
+        blog_read_time: "{0} 分鐘閱讀",
+        blog_t1_title: "外國人東京必住酒店 Top 10 2026",
+        blog_t1_excerpt: "精選新宿、淺草、銀座等熱門區域的高評價飯店推薦。",
+        blog_t1_p1: "東京提供國際旅客豐富多樣的住宿選擇，從超現代摩天大樓到溫馨的商務酒店。以下是我們為2026年嚴選的推薦。",
+        blog_t1_p2: "<strong>1. Shinjuku Hotel PARK INN</strong> - 位於東京最熱鬧的新宿區中心。夜生活、購物、交通便利的絕佳選擇。評分3.8/5，約¥8,500/晚。",
+        blog_t1_p3: "<strong>2. MYSTAYS淺草酒店</strong> - 距離淺草寺僅幾步之遙。初次造訪想體驗老東京風情的旅客首選。評分3.5/5，約¥12,600/晚。",
+        blog_t1_p4: "<strong>3. ELE hotel Ginza East</strong> - 位於東京高級銀座區附近。適合奢侈品購物與精緻美食。評分3.6/5，約¥9,800/晚。",
+        blog_t1_p5: "<strong>4. Olympic Inn Azabu</strong> - 位於精緻的麻布區，靠近六本木。商務旅客的最佳選擇。評分3.9/5，約¥10,200/晚。",
+        blog_t1_p6: "<strong>5. OLYMPIC INN Kanda</strong> - 秋葉原和東京站附近的平價選擇。房間緊湊但設備齊全。評分3.5/5，約¥7,500/晚。",
+        blog_t1_p7: "其他推薦包括獨特河景位置的Kiba no Tsuru Crane Hotel、適合長期住宿的FLEXSTAY INN Shirogane、以及注重性價比的Smile Hotel Tokyo Ayase Ekimae。櫻花季（3-4月）請提早預訂。",
+        blog_search_tokyo: "搜尋所有東京飯店 →",
+        blog_t2_title: "京都住宿指南：最佳區域推薦",
+        blog_t2_excerpt: "從祇園的花街到繁華的烏丸通，為您的京都寺院之旅找到最佳據點。",
+        blog_t2_p1: "京都，日本的文化之都，提供各具特色的區域。選擇正確的住宿地點能決定您旅程的成敗。",
+        blog_t2_p2: "<strong>祇園・東山</strong> - 最具氛圍的地區，有藝伎屋、清水寺和傳統町家街道。住宿Hotel Kuretakeso Kyoto Kiyomizu Gojo可輕鬆遊覽東部名勝。",
+        blog_t2_p3: "<strong>烏丸・四條（市中心）</strong> - 公車和地鐵連接便利的商業中心。HOTEL CUORE Kyoto Shijo Omiya和Smile Hotel Kyoto Karasumagojo可方便前往錦市場。",
+        blog_t2_p4: "<strong>京都站周邊</strong> - 適合搭乘新幹線的旅客。KYOTO PLAZA HOTEL KYOTO STATION SOUTH可方便搭乘新幹線。首次造訪京都的最佳選擇。",
+        blog_t2_p5: "<strong>二條城區域</strong> - 住宿在京都最著名的城堡附近。HOTEL LiVEMAX KYOTO NIJO-JO-KITA步行即可到達城堡庭園。",
+        blog_t2_p6: "注重設計可考慮HOTEL ANTEROOM KYOTO或The Celecton Kyoto Horikawa Sanjo。預算有限選EN HOTEL Kyoto約¥7,000/晚起。紅葉季和櫻花季建議數月前預訂。",
+        blog_search_kyoto: "搜尋所有京都飯店 →",
+        blog_t3_title: "富士山住宿：溫泉與河口湖指南",
+        blog_t3_excerpt: "在天然溫泉中欣賞富士山景。富士山周邊旅館、溫泉飯店、湖畔住宿攻略。",
+        blog_t3_p1: "富士山之旅是許多旅客的夢想之旅。周圍的山梨縣和靜岡縣提供從私人溫泉豪華旅館到絕美景色的平價酒店。",
+        blog_t3_p2: "<strong>河口湖區域</strong> - 富士山觀光最受歡迎的基地。河口湖・西湖・富士吉田區域的飯店提供湖畔富士倒影的房間。價格從商務酒店¥8,000到溫泉旅館¥30,000以上。",
+        blog_t3_p3: "<strong>甲府區域</strong> - 山梨縣首府提供更經濟的住宿，方便前往昇仙峽和山梨酒莊。推薦Hotel Mifuji、Hotel Crown Hills Kofu和HOTEL R9 The Yard Kofu。",
+        blog_t3_p4: "<strong>溫泉與旅館體驗</strong> - 想體驗傳統日式旅館，請選擇有天然溫泉的住宿。富士五湖地區的旅館提供懷石料理和榻榻米房間。貸切風呂房間可在山景中享受私人泡湯。",
+        blog_t3_p5: "<strong>實用資訊</strong> - 最適合觀賞富士山的時間是10至2月清晨。登山季為6-9月。從東京搭乘特急到大月，轉乘富士急行線到河口湖（約2小時）。",
+        blog_search_fuji: "搜尋所有富士山飯店 →",
+        blog_t4_title: "外國旅客日本住宿預訂指南",
+        blog_t4_excerpt: "支付方式、語言障礙、取消政策、提前預訂等您需要知道的一切。",
+        blog_t4_p1: "外國旅客在日本預訂酒店比以往更容易，但仍有一些重要差異需要注意。",
+        blog_t4_p2: "<strong>支付方式</strong> - 大多數飯店接受Visa和Mastercard。AMEX和JCB在中級以上飯店廣泛接受。鄉下旅館可能只收現金。",
+        blog_t4_p3: "<strong>語言考量</strong> - 不會日語也不用擔心。APA酒店、Smile Hotel等大型連鎖有英文預訂網站。我們的平台提供英日中韓四種語言飯店資訊。",
+        blog_t4_p4: "<strong>取消政策</strong> - 日本飯店取消政策通常比西方嚴格。多數要求入住前3-7天取消才能全額退款。預訂前務必閱讀條款。",
+        blog_t4_p5: "<strong>入住與退房時間</strong> - 日本標準入住15:00，退房10:00。提早到達可寄放行李。",
+        blog_t4_p6: "<strong>房間大小</strong> - 日本飯店房間通常比西方小。兩人住宿請預訂雙人房或雙床房。",
+        blog_t4_p7: "<strong>旺季時段</strong> - 櫻花季、紅葉季、黃金週和新年的飯店請提前2-3個月預訂。淡季（1-2月、6月）價格最優惠。",
       },
       ko: {
         nav_map: "지도",
@@ -1479,7 +1717,7 @@
         nav_hotels: "호텔",
         nav_forai: "AI용",
         hero_title: '일본 최고의 호텔,<br>AI로 즉시 예약',
-        hero_desc: "국제 여행객이 사랑하는 300개 이상의 엄선된 호텔. AI 에이전트가 직접 검색할 수 있습니다.",
+        hero_desc: "국제 여행객이 사랑하는 320개 이상의 엄선된 호텔. AI 에이전트가 직접 검색할 수 있습니다.",
         hero_search_btn: "호텔 검색",
         hero_learn_btn: "WebMCP 알아보기",
         explore_title: "지역별 탐색",
@@ -1504,6 +1742,7 @@
         guest_3: "3명",
         guest_4: "4명",
         guest_5: "5명 이상",
+        affiliate_notice: "가격은 제휴 파트너의 참고가격입니다. 예약 링크는 수수료를 발생시킬 수 있습니다.",
         results_title: "인기 호텔",
         results_hotels_in: "의 호텔",
         results_showing: "{1}개 중 {0}개 표시",
@@ -1522,6 +1761,7 @@
         found_hotels_all: "{0}개 호텔 발견",
         per_night: "/박",
         btn_book: "예약하기",
+        ad_label: "광고",
         webmcp_title: "AI 에이전트용",
         webmcp_desc: "WebMCP 지원. Claude, Gemini, OpenAI 호환 에이전트가 구조화된 도구 호출로 호텔을 직접 검색할 수 있습니다.",
         webmcp_nl_title: "자연어",
@@ -1532,7 +1772,7 @@
         footer_desc: "최초의 AI 호환 일본 호텔 검색 도구. WebMCP 지원으로 일본 전역의 최고 호텔을 검색하고 예약하세요.",
         footer_regions: "지역",
         footer_all: "전체 호텔",
-        footer_hotels: "300개 이상의 엄선된 호텔",
+        footer_hotels: "320개 이상의 엄선된 호텔",
         footer_pricing: "JPY & USD 가격",
         footer_affiliate: "제휴 링크 사용",
         footer_launched: "2026년 3월 출시",
@@ -1540,13 +1780,54 @@
         click_to_search: "호텔 검색하려면 클릭",
         faq_title: "자주 묻는 질문",
         faq_q1: "외국인도 일본 호텔을 쉽게 예약할 수 있나요?",
-        faq_a1: "네! 저희 플랫폼은 Jalan.net 등 신뢰할 수 있는 플랫폼을 통해 일본 전역 300개 이상의 호텔 예약 링크를 제공합니다.",
+        faq_a1: "네! 저희 플랫폼은 Jalan.net 등 신뢰할 수 있는 플랫폼을 통해 일본 전역 320개 이상의 호텔 예약 링크를 제공합니다.",
         faq_q2: "일본에서 가장 좋은 숙소 지역은 어디인가요?",
         faq_a2: "첫 방문은 도쿄, 전통문화는 교토, 미식은 오사카, 자연은 홋카이도, 해변은 오키나와를 추천합니다.",
         faq_q3: "일본 호텔에서 신용카드를 사용할 수 있나요?",
         faq_a3: "대부분의 호텔에서 Visa, Mastercard, AMEX, JCB를 사용할 수 있습니다. 온라인 예약이 가장 저렴합니다.",
         faq_q4: "WebMCP AI 예약이란?",
-        faq_a4: "Claude, ChatGPT 등 AI 에이전트가 구조화된 도구 호출로 호텔을 검색하고 안전한 예약 페이지로 안내하는 서비스입니다." ,
+        faq_a4: "Claude, ChatGPT 등 AI 에이전트가 구조화된 도구 호출로 호텔을 검색하고 안전한 예약 페이지로 안내하는 서비스입니다.",
+        nav_blog: "여행 가이드",
+        nav_faq: "자주 묻는 질문",
+        blog_title: "일본 여행 가이드",
+        blog_subtitle: "일본 여행에 유용한 전문가 팁과 목적지 가이드",
+        blog_read_time: "{0}분 읽기",
+        blog_t1_title: "외국인을 위한 도쿄 최고 호텔 TOP 10 2026",
+        blog_t1_excerpt: "신주쿠, 아사쿠사, 긴자 등 인기 지역의 최고 평점 호텔을 소개합니다.",
+        blog_t1_p1: "도쿄는 초현대적 마천루부터 아늑한 비즈니스 호텔까지 국제 여행객을 위한 다양한 숙소를 제공합니다. 2026년 엄선 추천입니다.",
+        blog_t1_p2: "<strong>1. Shinjuku Hotel PARK INN</strong> - 도쿄에서 가장 활기찬 신주쿠 중심에 위치. 나이트라이프, 쇼핑, 교통 접근성 최고. 평점 3.8/5. 약 ¥8,500/박.",
+        blog_t1_p3: "<strong>2. HOTEL MYSTAYS Asakusa</strong> - 센소지에서 도보 거리. 전통적인 도쿄를 경험하고 싶은 초보자에게 최적. 평점 3.5/5. 약 ¥12,600/박.",
+        blog_t1_p4: "<strong>3. ELE hotel Ginza East</strong> - 도쿄의 고급 긴자 구 근처. 명품 쇼핑과 파인다이닝에 최적. 평점 3.6/5. 약 ¥9,800/박.",
+        blog_t1_p5: "<strong>4. Olympic Inn Azabu</strong> - 세련된 아자부 지역, 롯폰기 근처. 비즈니스 여행객 최적. 평점 3.9/5. 약 ¥10,200/박.",
+        blog_t1_p6: "<strong>5. OLYMPIC INN Kanda</strong> - 아키하바라와 도쿄역 근처의 가성비 옵션. 평점 3.5/5. 약 ¥7,500/박.",
+        blog_t1_p7: "기타 추천은 강변 위치의 Kiba no Tsuru Crane Hotel, 장기 체류용 FLEXSTAY INN Shirogane, 가성비 중시의 Smile Hotel Tokyo Ayase Ekimae. 벚꽃 시즌(3-4월)은 일찍 예약하세요.",
+        blog_search_tokyo: "도쿄 전체 호텔 검색 →",
+        blog_t2_title: "교토 여행 가이드: 최고의 숙소 지역",
+        blog_t2_excerpt: "기온의 게이샤 지구부터 번화가 가라스마까지, 교토 사원 탐방에 최적의 거점을 찾아보세요.",
+        blog_t2_p1: "일본의 문화 수도 교토는 각기 다른 특징을 가진 지역들을 제공합니다. 올바른 숙소 선택이 여행의 성패를 좌우합니다.",
+        blog_t2_p2: "<strong>기온・히가시야마</strong> - 가장 분위기 있는 지역. 게이샤 하우스, 기요미즈데라, 전통 마치야 거리. Hotel Kuretakeso Kyoto Kiyomizu Gojo에서 동부 명소에 쉽게 접근.",
+        blog_t2_p3: "<strong>가라스마・시조 (도심)</strong> - 버스와 지하철 접근이 우수한 상업 중심지. HOTEL CUORE Kyoto Shijo Omiya와 Smile Hotel Kyoto Karasumagojo가 니시키 시장에 편리.",
+        blog_t2_p4: "<strong>교토역 주변</strong> - 신칸센 이용에 최적. KYOTO PLAZA HOTEL KYOTO STATION SOUTH에서 신칸센 접근 용이. 첫 방문자에게 추천.",
+        blog_t2_p5: "<strong>니조성 지역</strong> - 교토에서 가장 유명한 성 근처 숙박. HOTEL LiVEMAX KYOTO NIJO-JO-KITA에서 성 정원까지 도보.",
+        blog_t2_p6: "디자인 중시라면 HOTEL ANTEROOM KYOTO나 The Celecton Kyoto Horikawa Sanjo 추천. 예산 중시는 EN HOTEL Kyoto 약 ¥7,000/박부터. 단풍 시즌과 벚꽃 시즌은 수개월 전 예약 필수.",
+        blog_search_kyoto: "교토 전체 호텔 검색 →",
+        blog_t3_title: "후지산 호텔: 온천 & 가와구치코 가이드",
+        blog_t3_excerpt: "천연 온천에서 후지산을 감상하세요. 후지산 주변 료칸, 온천 호텔, 호숫가 숙박 가이드.",
+        blog_t3_p1: "후지산 여행은 많은 여행객의 버킷리스트입니다. 주변 야마나시현과 시즈오카현은 프라이빗 온천 료칸부터 절경의 합리적 호텔까지 다양합니다.",
+        blog_t3_p2: "<strong>가와구치코 지역</strong> - 후지산 관광의 가장 인기 있는 거점. 가와구치코・사이코・후지요시다 지역 호텔은 호수에 후지산 반영이 비치는 객실 제공. 비즈니스 호텔 ¥8,000부터 온천 료칸 ¥30,000+까지.",
+        blog_t3_p3: "<strong>고후 지역</strong> - 야마나시현의 현청 소재지로 쇼센쿄 협곡과 야마나시 와이너리 접근 용이. Hotel Mifuji, Hotel Crown Hills Kofu, HOTEL R9 The Yard Kofu 추천. 와인 애호가에게 최적.",
+        blog_t3_p4: "<strong>온천 & 료칸 체험</strong> - 전통 일본 료칸을 원한다면 천연 온천이 있는 숙소를. 후지 5호수 지역의 많은 료칸이 가이세키 요리와 다다미 방을 제공. 각시키리부로(대관탕)가 있는 객실은 산경을 보며 프라이빗 탕욕 가능.",
+        blog_t3_p5: "<strong>실용 팁</strong> - 후지산이 선명하게 보이는 최적 시간은 10~2월 이른 아침. 등산은 6-9월 후지 스바루 라인 5合目에서. 도쿄에서 특급 아즈사/카이지로 오츠키, 후지큐코선으로 가와구치코 환승 (약 2시간).",
+        blog_search_fuji: "후지산 전체 호텔 검색 →",
+        blog_t4_title: "외국인을 위한 일본 호텔 예약 팁",
+        blog_t4_excerpt: "결제 방법, 언어 장벽, 취소 정책, 사전 예약에 대해 알아야 할 모든 것.",
+        blog_t4_p1: "외국인 관광객으로 일본 호텔 예약은 그 어느 때보다 쉬워졌지만, 몇 가지 중요한 차이점이 있습니다.",
+        blog_t4_p2: "<strong>결제 방법</strong> - 대부분의 호텔에서 Visa, Mastercard 사용 가능. AMEX, JCB도 중급 이상에서 널리 사용. 시골 료칸은 현금만 가능할 수 있으니 엔화를 준비하세요.",
+        blog_t4_p3: "<strong>언어</strong> - 일본어를 못해도 걱정 마세요. APA호텔, 스마일호텔, 루트인 등 대형 체인은 영어 예약 사이트와 영어 구사 직원이 있습니다. 저희 플랫폼은 영어, 일본어, 중국어, 한국어로 호텔 정보를 제공합니다.",
+        blog_t4_p4: "<strong>취소 정책</strong> - 일본 호텔은 서양보다 취소 정책이 엄격합니다. 대부분 체크인 3-7일 전 취소해야 전액 환불. 예약 전 조건을 반드시 확인하세요.",
+        blog_t4_p5: "<strong>체크인/체크아웃</strong> - 일본 기준 체크인 15:00, 체크아웃 10:00. 일찍 도착하면 수하물 보관 가능.",
+        blog_t4_p6: "<strong>객실 크기</strong> - 일본 호텔 객실은 서양보다 작습니다. 싱글은 세미더블(120-130cm폭)이 일반적. 2명은 더블 또는 트윈 예약. 캡슐 호텔은 1인 여행객에게 추천.",
+        blog_t4_p7: "<strong>성수기</strong> - 벚꽃 시즌(3월 하순~4월 중순), 단풍(11월), 골든위크(4월 하순~5월 상순), 연말연시는 2-3개월 전 예약 필수. 비수기(1-2월, 6월)에 최저가.",
       }
     };
 
@@ -1578,6 +1859,20 @@
       let text = i18n[currentLang]?.[key] || i18n.en[key] || key;
       args.forEach((arg, i) => { text = text.replace(`{${i}}`, arg); });
       return text;
+    }
+
+    // Blog article toggle
+    function toggleBlogArticle(btn) {
+      const content = btn.nextElementSibling;
+      const chevron = btn.querySelector('.blog-chevron');
+      const isHidden = content.classList.contains('hidden');
+      content.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+      if (isHidden) {
+        chevron.style.transform = 'rotate(180deg)';
+      } else {
+        chevron.style.transform = 'rotate(0deg)';
+      }
     }
 
     function setLang(lang) {
@@ -1809,6 +2104,28 @@
         const data = await response.json();
         hotels = data.hotels;
         affiliateLinks = data.affiliateLinks;
+        // Replace affiliate link placeholders with actual credentials from config.js
+        if (typeof AFFILIATE_CONFIG !== 'undefined' && AFFILIATE_CONFIG.sid && AFFILIATE_CONFIG.pid) {
+          const sid = AFFILIATE_CONFIG.sid;
+          const pid = AFFILIATE_CONFIG.pid;
+          // Update affiliateLinks (region-level links)
+          for (const lang in affiliateLinks) {
+            for (const area in affiliateLinks[lang]) {
+              affiliateLinks[lang][area] = affiliateLinks[lang][area]
+                .replace(/sid=\d+/, 'sid=' + sid)
+                .replace(/pid=\d+/, 'pid=' + pid);
+            }
+          }
+          // Update individual hotel bookUrl
+          hotels = hotels.map(h => {
+            if (h.bookUrl) {
+              h.bookUrl = h.bookUrl
+                .replace(/sid=\d+/, 'sid=' + sid)
+                .replace(/pid=\d+/, 'pid=' + pid);
+            }
+            return h;
+          });
+        }
         console.log(`Loaded ${hotels.length} hotels`);
         const budget = hotels.filter(h => h.price <= 10000).slice(0, 8);
         const mid = hotels.filter(h => h.price > 10000 && h.price <= 30000).slice(0, 8);
@@ -2048,7 +2365,7 @@
             <div class="relative overflow-hidden" style="height:180px;">
               <img src="${img}" alt="${translateHotelField(h, 'name')}" class="w-full h-full object-cover" loading="lazy" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-              ${h.rating >= 4.5 ? '<div class="absolute top-3 left-3 bg-gold-500 text-white text-xs font-bold px-2 py-1 rounded-full">★ ' + (currentLang === 'ja' ? 'おすすめ' : currentLang === 'zh-TW' ? '推薦' : currentLang === 'ko' ? '추천' : 'Recommended') + '</div>' : ''}
+              ${h.rating >= 4.5 ? '<div class="absolute top-3 left-3 bg-gold-500 text-white text-xs font-bold px-2 py-1 rounded-full" title="' + (currentLang === 'ja' ? 'ゲスト評価4.5以上' : currentLang === 'zh-TW' ? '住客評分4.5以上' : currentLang === 'ko' ? '객평 4.5+' : 'Guest rated 4.5+') + '">★ ' + (currentLang === 'ja' ? 'おすすめ' : currentLang === 'zh-TW' ? '推薦' : currentLang === 'ko' ? '추천' : 'Recommended') + '</div>' : ''}
               <div class="absolute bottom-3 left-4 right-4 text-white">
                 <div class="flex items-center gap-1 mb-1">${'★'.repeat(Math.floor(h.rating))}${h.rating % 1 >= 0.5 ? '½' : ''}<span class="text-white/50 text-sm">${h.rating}</span><span class="text-white/40 text-xs">/ 5.0</span></div>
                 <p class="text-xs text-white/70">${translateHotelField(h, 'subArea') || translateHotelField(h, 'area')} / ${translateHotelField(h, 'location')}</p>
@@ -2065,7 +2382,7 @@
               <p class="text-gray-500 text-sm mb-4 line-clamp-2">${translateHotelField(h, 'desc') || ''}</p>
               <div class="flex items-baseline justify-between mb-4">
                 <div>
-                  <span class="text-xs text-gray-400">${currentLang === 'en' ? 'From' : currentLang === 'ja' ? '' : ''}${currentLang === 'en' ? ' ' : ''}</span>
+                  <span class="text-xs text-gray-400">${currentLang === 'en' ? 'From' : currentLang === 'ja' ? '目安' : currentLang === 'zh-TW' ? '參考' : '약 '}${currentLang === 'en' ? ' ' : ''}</span>
                   <span class="text-2xl font-bold text-navy-600">¥${h.price.toLocaleString()}</span>
                   <span class="text-xs text-gray-400 ml-1">${perNight}</span>
                 </div>
@@ -2074,15 +2391,7 @@
                   <span class="block text-xs text-gray-400">${currentLang === 'ja' ? '（約$1=¥150）' : currentLang === 'zh-TW' ? '（約$1=¥150）' : ''}</span>
                 </div>
               </div>
-              <div class="flex items-center gap-2 mb-3">
-                <span class="inline-flex items-center gap-1 text-xs text-emerald-600 font-medium">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-                  <span class="data-trust-cancel">Free Cancellation</span>
-                </span>
-                <span class="text-gray-300">|</span>
-                <span class="text-xs text-gray-400 data-trust-price">Best Price Guarantee</span>
-              </div>
-              ${h.price < 10000 ? '<div class="bg-amber-50 border border-amber-200 rounded-lg p-2 mb-3 text-center"><span class="text-xs font-semibold text-amber-700">🔥 ' + (currentLang === 'ja' ? '格安! 今すぐ予約で最大70%OFFの可能性' : currentLang === 'zh-TW' ? '超值! 立即預託享最高70%折扣' : 'Budget Deal! Book now for up to 70% off') + '</span></div>' : ''}
+
               <a href="${bookingUrl}" target="_blank" rel="noopener noreferrer"
                  class="btn-primary block w-full text-center text-sm cursor-pointer"
                  aria-label="${btnBook} ${translateHotelField(h, 'name')}">
@@ -2091,6 +2400,7 @@
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
               </a>
+              <p class="text-[10px] text-gray-400 text-center mt-1.5">${t('ad_label')}</p>
             </div>
           </article>
         `;
