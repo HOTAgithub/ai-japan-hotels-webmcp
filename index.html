@@ -2112,16 +2112,16 @@
           for (const lang in affiliateLinks) {
             for (const area in affiliateLinks[lang]) {
               affiliateLinks[lang][area] = affiliateLinks[lang][area]
-                .replace(/sid=\d+/, 'sid=' + sid)
-                .replace(/pid=\d+/, 'pid=' + pid);
+                .replace(/sid=__VC_SID__/, 'sid=' + sid)
+                .replace(/pid=__VC_PID__/, 'pid=' + pid);
             }
           }
           // Update individual hotel bookUrl
           hotels = hotels.map(h => {
             if (h.bookUrl) {
               h.bookUrl = h.bookUrl
-                .replace(/sid=\d+/, 'sid=' + sid)
-                .replace(/pid=\d+/, 'pid=' + pid);
+                .replace(/sid=__VC_SID__/, 'sid=' + sid)
+                .replace(/pid=__VC_PID__/, 'pid=' + pid);
             }
             return h;
           });
