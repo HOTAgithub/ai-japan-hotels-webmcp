@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "server": {
+    "name": "AI Japan Hotels",
+    "description": "323 hotels across Japan for foreign tourists. WebMCP-enabled hotel search and booking.",
+    "url": "https://ai-japan-hotels.pages.dev/"
+  },
+  "tools": [
+    {
+      "name": "searchJapaneseHotels",
+      "description": "Search hotels across Japan by location, price range, dates, and guests. Returns matching hotels with prices, ratings, and booking links.",
+      "url": "https://ai-japan-hotels.pages.dev/#search-section",
+      "autoSubmit": true,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "City or region to search. Examples: Tokyo, Kyoto, Osaka, Hokkaido, Okinawa, Yokohama, Hiroshima, Fukuoka, Nagoya, Mt. Fuji. Japanese names also accepted."
+          },
+          "priceRange": {
+            "type": "string",
+            "description": "Price range filter. Values: empty (all), 0-10000 (budget), 10000-30000 (mid), 30000-50000 (premium), 50000-999999 (luxury).",
+            "enum": ["", "0-10000", "10000-30000", "30000-50000", "50000-999999"]
+          },
+          "checkin": {
+            "type": "string",
+            "description": "Check-in date in YYYY-MM-DD format (optional).",
+            "format": "date"
+          },
+          "checkout": {
+            "type": "string",
+            "description": "Check-out date in YYYY-MM-DD format (optional).",
+            "format": "date"
+          },
+          "guests": {
+            "type": "string",
+            "description": "Number of guests. Values: 1, 2, 3, 4, 5. Default: 2.",
+            "enum": ["1", "2", "3", "4", "5"]
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "getHotelRegions",
+      "description": "Get the list of available hotel regions in Japan. Returns region names with hotel counts and coordinate data.",
+      "url": "https://ai-japan-hotels.pages.dev/#map-section",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  ]
+}
