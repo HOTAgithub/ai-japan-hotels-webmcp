@@ -8,6 +8,7 @@ _batch2.json
 _batch3.json
 
 # Python scripts (used for data processing, not part of the app)
+fix_fujisan.py
 translate_all.py
 merge_translations.py
 analyze.py
