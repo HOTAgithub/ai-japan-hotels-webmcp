@@ -1049,68 +1049,19 @@
         <form onsubmit="event.preventDefault(); humanSearch();" aria-label="Hotel search form" toolname="searchJapaneseHotels" tooldescription="Search hotels across Japan by location, price range, dates, and guests. Returns matching hotels with prices, ratings, and booking links." toolautosubmit>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label for="searchPrefecture" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_prefecture">Prefecture</label>
-              <select id="searchPrefecture" class="search-input w-full" aria-label="Prefecture">
-                <option value="" data-i18n="prefecture_all">All Prefectures</option>
-                <optgroup label="Hokkaido / Tohoku">
-                  <option value="北海道">Hokkaido / 北海道</option>
-                  <option value="青森県">Aomori / 青森県</option>
-                  <option value="岩手県">Iwate / 岩手県</option>
-                  <option value="宮城県">Miyagi / 宮城県</option>
-                  <option value="秋田県">Akita / 秋田県</option>
-                  <option value="山形県">Yamagata / 山形県</option>
-                  <option value="福島県">Fukushima / 福島県</option>
-                </optgroup>
-                <optgroup label="Kanto">
-                  <option value="茨城県">Ibaraki / 茨城県</option>
-                  <option value="栃木県">Tochigi / 栃木県</option>
-                  <option value="群馬県">Gunma / 群馬県</option>
-                  <option value="埼玉県">Saitama / 埼玉県</option>
-                  <option value="千葉県">Chiba / 千葉県</option>
-                  <option value="東京都">Tokyo / 東京都</option>
-                  <option value="神奈川県">Kanagawa / 神奈川県</option>
-                </optgroup>
-                <optgroup label="Chubu / Hokuriku">
-                  <option value="新潟県">Niigata / 新潟県</option>
-                  <option value="富山県">Toyama / 富山県</option>
-                  <option value="石川県">Ishikawa / 石川県</option>
-                  <option value="福井県">Fukui / 福井県</option>
-                  <option value="山梨県">Yamanashi / 山梨県</option>
-                  <option value="長野県">Nagano / 長野県</option>
-                  <option value="岐阜県">Gifu / 岐阜県</option>
-                  <option value="静岡県">Shizuoka / 静岡県</option>
-                  <option value="愛知県">Aichi / 愛知県</option>
-                </optgroup>
-                <optgroup label="Kinki">
-                  <option value="三重県">Mie / 三重県</option>
-                  <option value="滋賀県">Shiga / 滋賀県</option>
-                  <option value="京都府">Kyoto / 京都府</option>
-                  <option value="大阪府">Osaka / 大阪府</option>
-                  <option value="兵庫県">Hyogo / 兵庫県</option>
-                  <option value="奈良県">Nara / 奈良県</option>
-                  <option value="和歌山県">Wakayama / 和歌山県</option>
-                </optgroup>
-                <optgroup label="Chugoku / Shikoku">
-                  <option value="鳥取県">Tottori / 鳥取県</option>
-                  <option value="島根県">Shimane / 島根県</option>
-                  <option value="岡山県">Okayama / 岡山県</option>
-                  <option value="広島県">Hiroshima / 広島県</option>
-                  <option value="山口県">Yamaguchi / 山口県</option>
-                  <option value="徳島県">Tokushima / 徳島県</option>
-                  <option value="香川県">Kagawa / 香川県</option>
-                  <option value="愛媛県">Ehime / 愛媛県</option>
-                  <option value="高知県">Kochi / 高知県</option>
-                </optgroup>
-                <optgroup label="Kyushu / Okinawa">
-                  <option value="福岡県">Fukuoka / 福岡県</option>
-                  <option value="佐賀県">Saga / 佐賀県</option>
-                  <option value="長崎県">Nagasaki / 長崎県</option>
-                  <option value="熊本県">Kumamoto / 熊本県</option>
-                  <option value="大分県">Oita / 大分県</option>
-                  <option value="宮崎県">Miyazaki / 宮崎県</option>
-                  <option value="鹿児島県">Kagoshima / 鹿児島県</option>
-                  <option value="沖縄県">Okinawa / 沖縄県</option>
-                </optgroup>
+              <label for="searchRegion" class="block text-xs font-medium text-gray-500 mb-1" data-i18n="search_region">Region</label>
+              <select id="searchRegion" class="search-input w-full" aria-label="Region">
+                <option value="" data-i18n="region_all">All Regions</option>
+                <option value="Tokyo">Tokyo / 東京</option>
+                <option value="Kyoto">Kyoto / 京都</option>
+                <option value="Osaka">Osaka / 大阪</option>
+                <option value="Hokkaido">Hokkaido / 北海道</option>
+                <option value="Okinawa">Okinawa / 沖縄</option>
+                <option value="Yokohama">Yokohama / 横浜</option>
+                <option value="Hiroshima">Hiroshima / 広島</option>
+                <option value="Fukuoka">Fukuoka / 福岡</option>
+                <option value="Nagoya">Nagoya / 名古屋</option>
+                <option value="Mt. Fuji">Mt. Fuji / 富士山</option>
               </select>
             </div>
             <div>
@@ -1447,8 +1398,8 @@
         explore_subtitle: "Click a region or use the map below",
         btn_show_all: "Show All",
         search_title: "Find Your Perfect Stay",
-        search_prefecture: "Prefecture",
-        prefecture_all: "All Prefectures",
+        search_region: "Region",
+        region_all: "All Regions",
         search_location: "Location",
         search_location_ph: "Tokyo, Kyoto, Osaka...",
         search_price: "Price Range",
@@ -1571,8 +1522,8 @@
         explore_subtitle: "エリアをクリックまたは下の地図をご利用ください",
         btn_show_all: "すべて表示",
         search_title: "理想の宿泊先を見つける",
-        search_prefecture: "都道府県",
-        prefecture_all: "すべての都道府県",
+        search_region: "地域",
+        region_all: "すべての地域",
         search_location: "場所",
         search_location_ph: "東京、京都、大阪...",
         search_price: "価格帯",
@@ -1689,8 +1640,8 @@
         explore_subtitle: "點擊區域或使用下方地圖",
         btn_show_all: "顯示全部",
         search_title: "尋找完美住宿",
-        search_prefecture: "都道府縣",
-        prefecture_all: "所有都道府縣",
+        search_region: "地區",
+        region_all: "所有地區",
         search_location: "地點",
         search_location_ph: "東京、京都、大阪...",
         search_price: "價格範圍",
@@ -1807,8 +1758,8 @@
         explore_subtitle: "지역을 클릭하거나 아래 지도를 사용하세요",
         btn_show_all: "전체 보기",
         search_title: "완벽한 숙소 찾기",
-        search_prefecture: "도도부현",
-        prefecture_all: "전체 도도부현",
+        search_region: "지역",
+        region_all: "전체 지역",
         search_location: "지역",
         search_location_ph: "도쿄, 교토, 오사카...",
         search_price: "가격대",
@@ -2265,7 +2216,7 @@
 
     // Search
     function humanSearch() {
-      const location = document.getElementById("searchPrefecture").value;
+      const location = document.getElementById("searchRegion").value;
       const priceRange = document.getElementById("searchPriceRange").value;
       let filtered = hotels;
 
@@ -2374,7 +2325,7 @@
 
     function quickFilter(location) {
       currentRegion = location;
-      document.getElementById("searchPrefecture").value = "";
+      document.getElementById("searchRegion").value = "";
 
       document.querySelectorAll('.region-btn').forEach(btn => {
         btn.classList.remove('active');
